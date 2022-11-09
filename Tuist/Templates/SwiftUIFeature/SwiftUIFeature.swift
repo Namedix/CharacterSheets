@@ -23,7 +23,7 @@ let template = Template(
     items: [
         // Create Preview
         .file(
-            path: appPath + "/Preview" + "/AppDelegate.swift",
+            path: appPath + "/Preview" + "/\(nameAttribute)App.swift",
             templatePath: "App.stencil"
         ),
 
