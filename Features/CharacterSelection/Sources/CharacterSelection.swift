@@ -6,51 +6,49 @@
 //  Copyright © 2022 com.rook. All rights reserved.
 //
 
-import Foundation
 import Common
 import ComposableArchitecture
+import Foundation
 
 public struct CharacterSelection: ReducerProtocol {
+    // MARK: - Properties
 
-	// MARK: - Properties
+    public struct State: Equatable {
+        // MARK: - Properties
 
-	public struct State: Equatable {
+        let characters: [CthulhuCharacter]
+        var randomCharacterImageName: String {
+            characters.randomElement()?.inestigatorData.appearanceImageName ?? Constants.defaultImageName
+        }
 
-		// MARK: - Properties
+        // MARK: - Initialization
 
-		let characters: [CthulhuCharacter]
-		var randomCharacterImageName: String {
-			characters.randomElement()?.inestigatorData.appearanceImageName ?? Constants.defaultImageName
-		}
+        public init(characters: [CthulhuCharacter]) {
+            self.characters = characters
+        }
+    }
 
-		// MARK: - Initialization
+    public enum Action: Equatable {
+        case didSelectCharacter(CthulhuCharacter)
+    }
 
-		public init(characters: [CthulhuCharacter]) {
-			self.characters = characters
-		}
-	}
+    // MARK: - Initialization
 
-	public enum Action: Equatable {
-		case didSelectCharacter(CthulhuCharacter)
-	}
+    public init() {}
 
-	// MARK: - Initialization
+    // MARK: - Composable Architecture
 
-	public init() {}
-
-	// MARK: - Composable Architecture
-
-	public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-		switch action {
-		case .didSelectCharacter:
-			// TODO: - Navigate to Tabs
-			return .none
-		}
-	}
+    public func reduce(into _: inout State, action: Action) -> EffectTask<Action> {
+        switch action {
+        case .didSelectCharacter:
+            // TODO: - Navigate to Tabs
+            return .none
+        }
+    }
 }
 
 extension CharacterSelection {
-	enum Constants {
-		static let defaultImageName: String = "characterReporter"
-	}
+    enum Constants {
+        static let defaultImageName: String = "characterReporter"
+    }
 }

@@ -1,9 +1,8 @@
-extension TextStyle {
-
+public extension TextStyle {
     /**
      * `Bold, 36.0, appWhite - SFProDisplay`
      */
-    public static let whiteBigBold: TextStyle = .init(
+    static let whiteBigBold: TextStyle = .init(
         font: .system(size: 36, weight: .bold),
         color: .appWhite
     )
@@ -11,7 +10,7 @@ extension TextStyle {
     /**
      * `Medium, 25.0, appWhite - SFProDisplay`
      */
-    public static let whiteLargeMedium: TextStyle = .init(
+    static let whiteLargeMedium: TextStyle = .init(
         font: .system(size: 25, weight: .medium),
         color: .appWhite
     )
@@ -19,7 +18,7 @@ extension TextStyle {
     /**
      * `Bold, 20.0, appWhite - SFProDisplay`
      */
-    public static let whiteMediumBold: TextStyle = .init(
+    static let whiteMediumBold: TextStyle = .init(
         font: .system(size: 20, weight: .bold),
         color: .appWhite
     )
@@ -27,7 +26,7 @@ extension TextStyle {
     /**
      * `Bold, 20.0, appWhite - SFProDisplay`
      */
-    public static let whiteMediumMedium: TextStyle = .init(
+    static let whiteMediumMedium: TextStyle = .init(
         font: .system(size: 20, weight: .medium),
         color: .appWhite
     )
@@ -35,7 +34,7 @@ extension TextStyle {
     /**
      * `Bold, 16.0, appGrey - SFProDisplay`
      */
-    public static let greyBold: TextStyle = .init(
+    static let greyBold: TextStyle = .init(
         font: .system(size: 16, weight: .bold),
         color: .appGrey
     )
@@ -43,7 +42,7 @@ extension TextStyle {
     /**
      * `Bold, 16.0, appWhite - SFProDisplay`
      */
-    public static let whiteBold: TextStyle = .init(
+    static let whiteBold: TextStyle = .init(
         font: .system(size: 16, weight: .bold),
         color: .appWhite
     )
@@ -51,7 +50,7 @@ extension TextStyle {
     /**
      * `Medium, 16.0, appWhite - SFProDisplay`
      */
-    public static let whiteMedium: TextStyle = .init(
+    static let whiteMedium: TextStyle = .init(
         font: .system(size: 16, weight: .medium),
         color: .appWhite
     )
@@ -59,7 +58,7 @@ extension TextStyle {
     /**
      * `Regular, 16.0, appGrey - SFProDisplay`
      */
-    public static let greyRegular: TextStyle = .init(
+    static let greyRegular: TextStyle = .init(
         font: .system(size: 16, weight: .regular),
         color: .appGrey
     )
@@ -67,7 +66,7 @@ extension TextStyle {
     /**
      * `Medium, 16.0, appGrey - SFProDisplay`
      */
-    public static let greyMedium: TextStyle = .init(
+    static let greyMedium: TextStyle = .init(
         font: .system(size: 16, weight: .medium),
         color: .appGrey
     )
@@ -75,7 +74,7 @@ extension TextStyle {
     /**
      * `Bold, 16.0, appWhite - SFProDisplay`
      */
-    public static let whiteSmallBold: TextStyle = .init(
+    static let whiteSmallBold: TextStyle = .init(
         font: .system(size: 14, weight: .bold),
         color: .appWhite
     )
@@ -83,7 +82,7 @@ extension TextStyle {
     /**
      * `Medium, 14.0, appWhite - SFProDisplay`
      */
-    public static let whiteSmallMedium: TextStyle = .init(
+    static let whiteSmallMedium: TextStyle = .init(
         font: .system(size: 14, weight: .medium),
         color: .appWhite
     )
@@ -91,7 +90,7 @@ extension TextStyle {
     /**
      * `Regular, 14.0, appWhite - SFProDisplay`
      */
-    public static let whiteSmallRegular: TextStyle = .init(
+    static let whiteSmallRegular: TextStyle = .init(
         font: .system(size: 14, weight: .regular),
         color: .appWhite
     )
@@ -99,7 +98,7 @@ extension TextStyle {
     /**
      * `Regular, 14.0, appGrey - SFProDisplay`
      */
-    public static let greySmallRegular: TextStyle = .init(
+    static let greySmallRegular: TextStyle = .init(
         font: .system(size: 14, weight: .regular),
         color: .appGrey
     )
@@ -107,7 +106,7 @@ extension TextStyle {
     /**
      * `Bold, 14.0, appGrey - SFProDisplay`
      */
-    public static let greySmallBold: TextStyle = .init(
+    static let greySmallBold: TextStyle = .init(
         font: .system(size: 14, weight: .bold),
         color: .appGrey
     )
@@ -115,7 +114,7 @@ extension TextStyle {
     /**
      * `Bold, 12.0, appWhite - SFProDisplay`
      */
-    public static let whiteTinyBold: TextStyle = .init(
+    static let whiteTinyBold: TextStyle = .init(
         font: .system(size: 12, weight: .bold),
         color: .appWhite
     )
@@ -123,7 +122,7 @@ extension TextStyle {
     /**
      * `Regular, 12.0, appGrey - SFProDisplay`
      */
-    public static let greyTinyBold: TextStyle = .init(
+    static let greyTinyBold: TextStyle = .init(
         font: .system(size: 12, weight: .bold),
         color: .appGrey
     )
@@ -131,7 +130,7 @@ extension TextStyle {
     /**
      * `Regular, 12.0, appGrey - SFProDisplay`
      */
-    public static let greyTinyRegular: TextStyle = .init(
+    static let greyTinyRegular: TextStyle = .init(
         font: .system(size: 12, weight: .regular),
         color: .appGrey
     )
@@ -139,7 +138,7 @@ extension TextStyle {
     /**
      * `Medium, 12.0, appGrey - SFProDisplay`
      */
-    public static let greyTinyMedium: TextStyle = .init(
+    static let greyTinyMedium: TextStyle = .init(
         font: .system(size: 12, weight: .medium),
         color: .appGrey
     )
@@ -147,7 +146,7 @@ extension TextStyle {
     /**
      * `Medium, 12.0, appLightPurple - SFProDisplay`
      */
-    public static let purpleTinyMedium: TextStyle = .init(
+    static let purpleTinyMedium: TextStyle = .init(
         font: .system(size: 12, weight: .medium),
         color: .appLightPurple
     )
@@ -155,7 +154,7 @@ extension TextStyle {
     /**
      * `Medium, 10.0, appGrey - SFProDisplay`
      */
-    public static let greyMicroMedium: TextStyle = .init(
+    static let greyMicroMedium: TextStyle = .init(
         font: .system(size: 10, weight: .medium),
         color: .appGrey
     )
@@ -163,7 +162,7 @@ extension TextStyle {
     /**
      * `Regular, 10.0, appGrey - SFProDisplay`
      */
-    public static let greyMicroRegular: TextStyle = .init(
+    static let greyMicroRegular: TextStyle = .init(
         font: .system(size: 10, weight: .regular),
         color: .appGrey
     )

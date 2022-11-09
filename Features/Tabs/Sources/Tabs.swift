@@ -1,19 +1,19 @@
 import ComposableArchitecture
 
 public struct Tabs: ReducerProtocol {
+    // MARK: - Properties
 
-	// MARK: - Properties
+    public struct State {
+        public init() {}
+    }
 
-	public struct State {
-		public init() {}
-	}
-	public enum Action {}
+    public enum Action {}
 
-	// MARK: - Initialization
+    // MARK: - Initialization
 
-	public init() {}
+    public init() {}
 
-	// MARK: - Composable Architecture
+    // MARK: - Composable Architecture
 
-	public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {}
+    public func reduce(into _: inout State, action _: Action) -> EffectTask<Action> {}
 }

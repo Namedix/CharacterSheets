@@ -18,7 +18,7 @@ let template = Template(
     description: "Create feature with Preview target",
     attributes: [
         nameAttribute,
-        .optional("platform", default: "ios")
+        .optional("platform", default: "ios"),
     ],
     items: [
         // Create Preview
@@ -47,6 +47,6 @@ let template = Template(
         .file(
             path: appPath + "/Tests" + "/\(nameAttribute)Tests.swift",
             templatePath: "AppTests.stencil"
-        )
+        ),
     ]
 )

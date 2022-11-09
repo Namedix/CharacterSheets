@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct Margin {
+public enum Margin {
     /// Value: 4.0
     public static let micro: CGFloat = 4.0
 

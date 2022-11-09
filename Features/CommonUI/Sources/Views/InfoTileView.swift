@@ -16,7 +16,7 @@ public struct InfoTileView: View {
             image
                 .resizable()
                 .scaledToFit()
-				.frame(width: Sizes.big, height: Sizes.big)
+                .frame(width: Sizes.big, height: Sizes.big)
                 .padding(Margin.small)
                 .defaultLightCard()
                 .padding([.leading, .vertical], Margin.regular)
@@ -35,14 +35,14 @@ public struct InfoTileView: View {
 }
 
 #if DEBUG
-struct SimpleInfoTile_Previews: PreviewProvider {
-    static var previews: some View {
-        InfoTileView(
-            image: Image.crossedSwords,
-            title: "Namedix",
-            description: "Dzielny wojownik, przystojny chłopak, szlachcic"
-        )
-        .previewLayout(.sizeThatFits)
+    struct SimpleInfoTile_Previews: PreviewProvider {
+        static var previews: some View {
+            InfoTileView(
+                image: Image.crossedSwords,
+                title: "Namedix",
+                description: "Dzielny wojownik, przystojny chłopak, szlachcic"
+            )
+            .previewLayout(.sizeThatFits)
+        }
     }
-}
 #endif

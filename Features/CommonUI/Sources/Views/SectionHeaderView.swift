@@ -27,7 +27,7 @@ public struct SectionHeaderView: View {
             Button(action: rightAction) {
                 image?
                     .resizable()
-					.frame(width: Sizes.normal, height: Sizes.normal)
+                    .frame(width: Sizes.normal, height: Sizes.normal)
             }
         }
         .padding(.horizontal, Margin.regular)
@@ -36,22 +36,22 @@ public struct SectionHeaderView: View {
 }
 
 #if DEBUG
-struct SectionHeader_Previews: PreviewProvider {
-    static var previews: some View {
-        SectionHeaderView(
-			title: L10n.characterListTitle,
-            image: Image(systemName: "gear"),
-            rightAction: {}
-        )
-        .padding()
-        .background(color: .appBlackDark)
-        .previewLayout(.sizeThatFits)
-        SectionHeaderView(
-            title: L10n.characterListTitle
-        )
-        .padding()
-        .background(color: .appBlackDark)
-        .previewLayout(.sizeThatFits)
+    struct SectionHeader_Previews: PreviewProvider {
+        static var previews: some View {
+            SectionHeaderView(
+                title: L10n.characterListTitle,
+                image: Image(systemName: "gear"),
+                rightAction: {}
+            )
+            .padding()
+            .background(color: .appBlackDark)
+            .previewLayout(.sizeThatFits)
+            SectionHeaderView(
+                title: L10n.characterListTitle
+            )
+            .padding()
+            .background(color: .appBlackDark)
+            .previewLayout(.sizeThatFits)
+        }
     }
-}
 #endif
