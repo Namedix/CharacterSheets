@@ -12,7 +12,9 @@ import CharacterSelection
 struct CthulhuCharacterSheetApp: App {
     var body: some Scene {
         WindowGroup {
-            CharacterSelectionView()
+			CharacterSelectionView(
+				store: .init(initialState: Feature.State(), reducer: Feature())
+			)
         }
     }
 }

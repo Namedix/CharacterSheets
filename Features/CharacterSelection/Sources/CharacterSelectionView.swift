@@ -7,12 +7,37 @@
 
 import SwiftUI
 import CommonUI
+import ComposableArchitecture
 
-public struct CharacterSelectionView: View {
+public struct Feature: ReducerProtocol {
+
+	// MARK: - Properties
+
+	public struct State {
+		public init() {}
+	}
+	public enum Action {}
 
 	// MARK: - Initialization
 
 	public init() {}
+
+	// MARK: - Composable Architecture
+
+	public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
+
+	}
+
+}
+
+public struct CharacterSelectionView: View {
+
+	var store: StoreOf<Feature>
+	// MARK: - Initialization
+
+	public init(store: StoreOf<Feature>) {
+		self.store = store
+	}
 
 	// MARK: - View
 
@@ -86,6 +111,11 @@ public struct CharacterSelectionView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterSelectionView()
+		CharacterSelectionView(
+			store: Store(
+				initialState: .init(),
+				reducer: Feature()
+			)
+		)
     }
 }

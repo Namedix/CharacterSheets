@@ -24,25 +24,17 @@ let template = Template(
         // Create Preview
         .file(
             path: appPath + "/Preview" + "/AppDelegate.swift",
-            templatePath: "AppDelegate.stencil"
+            templatePath: "App.stencil"
         ),
 
         // Create MVVM+C Sources
         .file(
-            path: appPath + "/Sources" + "/\(nameAttribute)ViewModel.swift",
-            templatePath: "ViewModel.stencil"
+            path: appPath + "/Sources" + "/\(nameAttribute).swift",
+            templatePath: "Feature.stencil"
         ),
         .file(
             path: appPath + "/Sources" + "/\(nameAttribute)View.swift",
             templatePath: "View.stencil"
-        ),
-        .file(
-            path: appPath + "/Sources" + "/\(nameAttribute)Coordinator.swift",
-            templatePath: "Coordinator.stencil"
-        ),
-        .file(
-            path: appPath + "/Sources" + "/\(nameAttribute)Environment.swift",
-            templatePath: "Environment.stencil"
         ),
 
         // Create Testing

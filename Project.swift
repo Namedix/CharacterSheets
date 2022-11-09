@@ -40,6 +40,14 @@ var targets: [Target] {
 		],
 		targets: [.framework]
 	)
+	targets += Target.makeFrameworkTargets(
+		name: "Tabs",
+		dependencies: [
+			.target(name: "Common"),
+			.target(name: "CommonUI")
+		],
+		targets: [.preview, .framework]
+	)
 	return targets
 }
 

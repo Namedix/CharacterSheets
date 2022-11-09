@@ -1,31 +1,31 @@
 import SwiftUI
 import ComposableArchitecture
 
-public struct {{ name }}View: View {
+public struct TabsView: View {
 
     // MARK: - Properties
 
-    var store: StoreOf<{{ name }}>
+    var store: StoreOf<Tabs>
 
     // MARK: - Initialization
 
-    public init(store: StoreOf<{{ name }}>) {
+    public init(store: StoreOf<Tabs>) {
 		self.store = store
     }
 
     // MARK: - View
 
     public var body: some View {
-        Text("{{ name }}")
+        Text("Tabs")
     }
 }
 
 struct WorkspaceView_Previews: PreviewProvider {
     static var previews: some View {
-        {{ name }}View(
+        TabsView(
 			store: Store(
 				initialState: .init(),
-				reducer: {{ name }}()
+				reducer: Tabs()
 			)
         )
     }
