@@ -5,7 +5,7 @@ import ProjectDescriptionHelpers
 
 let configurations: [Configuration] = [
 	.debug(name: "Debug", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/Base/Configurations/Debug.xcconfig")),
-	.debug(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/Base/Configurations/Release.xcconfig")),
+	.release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/Base/Configurations/Release.xcconfig")),
 ]
 
 // MARK: - Targets
@@ -21,7 +21,9 @@ var targets: [Target] {
     )
     targets += Target.makeFrameworkTargets(
         name: "Common",
-        dependencies: [],
+        dependencies: [
+			.external(name: "ComposableArchitecture")
+		],
         targets: [.framework]
     )
     targets += Target.makeFrameworkTargets(
