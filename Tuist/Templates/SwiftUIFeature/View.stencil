@@ -1,0 +1,22 @@
+import SwiftUI
+
+@available(iOS 14.0, *)
+struct {{ name }}View<ViewModel: {{ name }}ViewModelType>: View {
+
+    // MARK: - Properties
+
+    @StateObject var viewModel: ViewModel
+
+    // MARK: - View
+
+    var body: some View {
+        Text("{{ name }}")
+    }
+}
+
+@available(iOS 14.0, *)
+struct WorkspaceView_Previews: PreviewProvider {
+    static var previews: some View {
+        {{ name }}View(viewModel: {{ name }}ViewModel())
+    }
+}

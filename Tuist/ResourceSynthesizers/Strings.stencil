@@ -1,0 +1,82 @@
+// swiftlint:disable all
+// Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
+
+{% if tables.count > 0 %}
+{% set accessModifier %}{% if param.publicAccess %}public{% else %}internal{% endif %}{% endset %}
+{% set bundleToken %}{{param.name}}Resources{% endset %}
+
+import Foundation
+
+// swiftlint:disable superfluous_disable_command
+// swiftlint:disable file_length
+
+// MARK: - Strings
+
+{% macro parametersBlock types %}{% filter removeNewlines:"leading" %}
+  {% for type in types %}
+    _ p{{forloop.counter}}: {{type}}{{ ", " if not forloop.last }}
+  {% endfor %}
+{% endfilter %}{% endmacro %}
+{% macro argumentsBlock types %}{% filter removeNewlines:"leading" %}
+  {% for type in types %}
+    {% if type == "UnsafeRawPointer" %}
+    Int(bitPattern: p{{forloop.counter}})
+    {% else %}
+    p{{forloop.counter}}
+    {% endif %}
+    {{ ", " if not forloop.last }}
+  {% endfor %}
+{% endfilter %}{% endmacro %}
+{% macro recursiveBlock table item %}
+  {% for string in item.strings %}
+  {% if not param.noComments %}
+  /// {{string.translation}}
+  {% endif %}
+  {% if string.types %}
+  public static func {{string.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}({% call parametersBlock string.types %}) -> String {
+    L10n.localizedString(forKey: "{{string.key}}", with: {% call argumentsBlock string.types %})
+  }
+  {% else %}
+  public static var {{string.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}: String {
+    L10n.localizedString("{{string.key}}")
+  }
+  {% endif %}
+  {% endfor %}
+  {% for child in item.children %}
+
+  public enum {{child.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
+    {% filter indent:2 %}{% call recursiveBlock table child %}{% endfilter %}
+  }
+  {% endfor %}
+{% endmacro %}
+// swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
+// swiftlint:disable nesting type_body_length type_name
+{% set enumName %}{{param.enumName|default:"L10n"}}{% endset %}
+public enum {{enumName}} {
+
+  public static var localizedString: (String) -> String = { string in
+      {{bundleToken}}.bundle.localizedString(forKey: string, value: nil, table: nil)
+  }
+
+  private static func localizedString(forKey key: String, with args: CVarArg...) -> String {
+      withVaList(args) { (params: CVaListPointer) in
+          NSString(format: L10n.localizedString(key), arguments: params) as String
+      }
+  }
+}
+
+extension {{enumName}} {
+  {% if tables.count > 1 %}
+  {% for table in tables %}
+
+  public enum {{table.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
+    {% filter indent:2 %}{% call recursiveBlock table.name table.levels %}{% endfilter %}
+  }
+  {% endfor %}
+  {% else %}
+  {% call recursiveBlock tables.first.name tables.first.levels %}
+  {% endif %}
+}
+{% else %}
+// No string found
+{% endif %}

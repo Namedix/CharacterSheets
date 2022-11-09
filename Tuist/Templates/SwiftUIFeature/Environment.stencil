@@ -1,0 +1,5 @@
+import Foundation
+
+public struct {{name}}Environment {
+    public init() {}
+}

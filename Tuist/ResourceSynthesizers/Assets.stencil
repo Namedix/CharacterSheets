@@ -1,0 +1,75 @@
+// swiftlint:disable all
+// Generated using SwiftGen, by O.Halligon — https://github.com/SwiftGen/SwiftGen
+
+{% if catalogs %}
+import UIKit
+import SwiftUI
+
+// swiftlint:disable superfluous_disable_command
+// swiftlint:disable file_length
+{% set bundleToken %}{{param.name}}Resources{% endset %}
+
+// swiftlint:disable identifier_name line_length nesting type_body_length type_name
+{% macro casesBlock assets %}
+  {% for asset in assets %}
+    {% if asset.type == "image" %}
+
+    public static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}: UIImage = UIImage(named: "{{asset.value}}", in: {{bundleToken}}.bundle, compatibleWith: nil)!
+    {% elif asset.items %}
+      {% call casesBlock asset.items %}
+    {% endif %}
+  {% endfor %}
+{% endmacro %}
+{% macro casesBlockSwiftUI assets %}
+  {% for asset in assets %}
+    {% if asset.type == "image" %}
+    {% set imageName %}{{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
+
+    public static let {{imageName}}: Image = Image(uiImage: .{{imageName}})
+    {% elif asset.items %}
+      {% call casesBlockSwiftUI asset.items %}
+    {% endif %}
+  {% endfor %}
+{% endmacro %}
+
+// MARK: - Assets
+
+extension UIImage {
+  {% for catalog in catalogs %}
+    {% call casesBlock catalog.assets %}
+  {% endfor %}
+}
+
+extension Image {
+  {% for catalog in catalogs %}
+    {% call casesBlockSwiftUI catalog.assets %}
+  {% endfor %}
+}
+
+// MARK: - Colors
+
+extension UIColor {
+{% for catalog in catalogs %}
+  {% for asset in catalog.assets%}
+    {% if asset.type == "color" %}
+
+    public static let app{{asset.name|swiftIdentifier:"pretty"|upperFirstLetter|escapeReservedKeywords}}: UIColor = UIColor(named: "{{asset.value}}", in: {{bundleToken}}.bundle, compatibleWith: nil)!
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+}
+
+extension Color {
+{% for catalog in catalogs %}
+  {% for asset in catalog.assets%}
+    {% if asset.type == "color" %}
+    {% set colorName %}app{{asset.name|swiftIdentifier:"pretty"|upperFirstLetter|escapeReservedKeywords}}{% endset %}
+
+    public static let {{colorName}}: Color = Color(.{{colorName}})
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+}
+{% else %}
+// No assets found
+{% endif %}

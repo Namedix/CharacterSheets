@@ -1,0 +1,26 @@
+import Combine
+
+protocol {{ name }}ViewModelInputs {}
+
+protocol {{ name }}ViewModelOutputs {}
+
+protocol {{ name }}ViewModelType: ObservableObject {
+    var inputs: {{ name }}ViewModelInputs { get }
+    var outputs: {{ name }}ViewModelOutputs { get }
+}
+
+final class {{ name }}ViewModel: {{ name }}ViewModelInputs, {{ name }}ViewModelOutputs {
+
+    // MARK: - Properties
+
+    // MARK: Inputs
+
+    // MARK: Outputs
+
+    // MARK: - Initialization
+}
+
+extension {{ name }}ViewModel: {{ name }}ViewModelType {
+    var inputs: {{ name }}ViewModelInputs { self }
+    var outputs: {{ name }}ViewModelOutputs { self }
+}
