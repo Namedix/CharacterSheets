@@ -24,7 +24,15 @@ extension Target {
     ) -> [Target] {
         var appTargets: [Target] = []
 		let appConfigurations: [Configuration] = [
-			.debug(name: "Debug", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")),
+			.debug(
+				name: "Debug",
+				settings: .init()
+					.manualCodeSigning(
+						identity: "Apple Development",
+						provisioningProfileSpecifier: "Character Sheets"
+					),
+				xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")
+			),
 			.release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")),
 		]
 		let testsConfigurations: [Configuration] = [
@@ -36,7 +44,7 @@ extension Target {
                 name: name,
                 platform: .iOS,
                 product: .app,
-                bundleId: bundlePrefix,
+                bundleId: "\(bundlePrefix).app",
                 deploymentTarget: .iOS(targetVersion: deploymentTargetVersion, devices: .iphone),
 				infoPlist: .extendingDefault(with: ["UILaunchStoryboardName": "LaunchScreen"]),
                 sources: ["Features/\(name)/Sources/**/*.swift"],
