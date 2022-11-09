@@ -8,15 +8,15 @@
 
 import Foundation
 
-enum CharacterSex {
+public enum CharacterSex: Equatable {
 	case male
 	case female
 }
 
-struct Age {
-	let value: Int
+public struct Age: Equatable {
+	public let value: Int
 
-	var modifier: Int {
+	public var modifier: Int {
 		switch value {
 		case 40...49:
 			return 1
@@ -34,34 +34,39 @@ struct Age {
 	}
 }
 
-struct BasicInfo {
-	let name: String
-	var occupation: String
-	var age: Age
-	let sex: CharacterSex
-	var adress: String
-	let birthPlace: String
-	var appearanceImageName: String?
+public struct Occupation: Equatable {
+	public let value: String
+	public let imageName: String
 }
 
-struct Characteristics {
-	let strenght: Int
-	let constitution: Int
-	let dexternity: Int
-	let inteligence: Int
-	let size: Int
-	let power: Int
-	let apperance: Int
-	let education: Int
+public struct BasicInfo: Equatable {
+	public let name: String
+	public var occupation: Occupation
+	public var age: Age
+	public let sex: CharacterSex
+	public var adress: String
+	public let birthPlace: String
+	public var appearanceImageName: String?
 }
 
-struct Healht {
-	var maxValue: Int
-	var currentValue: Int
-	var criticalWound: Bool = false // changes when you're hit with at least half hp in single blow
-	var status: Status = .alive
+public struct Characteristics: Equatable {
+	public let strenght: Int
+	public let constitution: Int
+	public let dexternity: Int
+	public let inteligence: Int
+	public let size: Int
+	public let power: Int
+	public let apperance: Int
+	public let education: Int
+}
 
-	enum Status {
+public struct Healht: Equatable {
+	public var maxValue: Int
+	public var currentValue: Int
+	public var criticalWound: Bool = false // changes when you're hit with at least half hp in single blow
+	public var status: Status = .alive
+
+	public enum Status: Equatable {
 		case alive
 		case dead // fail CON roll while dying || fall below 0 hp
 		case unconscious // hit over half hp and fail CON roll || hit 0
@@ -69,35 +74,35 @@ struct Healht {
 	}
 }
 
-struct Sanity {
-	let startingValue: Int // starting Power
-	var currentValue: Int // sanity adjusted with rolls
-	var maxValue: Int // 99 - knowledge of cthulhu mythos
-	var temporaryInsanity: Bool = false
-	var indefiniteInsanity: Bool = false
-	var insanityThreshold: Int {
+public struct Sanity: Equatable {
+	public let startingValue: Int // starting Power
+	public var currentValue: Int // sanity adjusted with rolls
+	public var maxValue: Int // 99 - knowledge of cthulhu mythos
+	public var temporaryInsanity: Bool = false
+	public var indefiniteInsanity: Bool = false
+	public var insanityThreshold: Int {
 		startingValue / 5
 	}
 }
 
-struct UsableValue {
-	var maxValue: Int
-	var currentValue: Int
+public struct UsableValue: Equatable {
+	public var maxValue: Int
+	public var currentValue: Int
 }
 
-struct Skill {
-	let name: String
-	var didUse: Bool = false
-	var defaultValue: Int
-	var halfValue: Int {
+public struct Skill: Equatable {
+	public let name: String
+	public var didUse: Bool = false
+	public var defaultValue: Int
+	public var halfValue: Int {
 		defaultValue / 2
 	}
-	var fifthValue: Int {
+	public var fifthValue: Int {
 		defaultValue / 5
 	}
 }
 
-enum ItemType: String {
+public enum ItemType: String, Equatable {
 	case manClothes
 	case womanClothes
 	case food
@@ -109,29 +114,34 @@ enum ItemType: String {
 	case misc
 }
 
-class Item {
-	let name: String
-	let type: ItemType
+public class Item: Equatable {
 
-	init(name: String, type: ItemType) {
+	public let name: String
+	public let type: ItemType
+
+	public init(name: String, type: ItemType) {
 		self.name = name
 		self.type = type
 	}
+
+	public static func == (lhs: Item, rhs: Item) -> Bool {
+		lhs.name == rhs.name && lhs.type == rhs.type
+	}
 }
 
-class Weapon: Item  {
-	let value: Int
-	let damage: String
-	let range: Int?
-	let minAttacks: Int?
-	let maxAttacks: Int?
-	let ammo: Int?
-	let malfunction: Int?
+public class Weapon: Item  {
+	public let value: Int
+	public let damage: String
+	public let range: Int?
+	public let minAttacks: Int?
+	public let maxAttacks: Int?
+	public let ammo: Int?
+	public let malfunction: Int?
 
-	var halfValue: Int {
+	public var halfValue: Int {
 		value / 2
 	}
-	var fifthValue: Int {
+	public var fifthValue: Int {
 		value / 5
 	}
 
@@ -157,9 +167,9 @@ class Weapon: Item  {
 	}
 }
 
-struct Combat {
-	let damageBonus: String
-	let build: Int
+public struct Combat: Equatable {
+	public let damageBonus: String
+	public let build: Int
 
 	init(strenght: Int, constitution: Int) {
 		let sum = strenght + constitution
@@ -186,36 +196,37 @@ struct Combat {
 	}
 }
 
-struct History {
-	var personalDescription: String
-	var traits: String
-	var ideologyBeliefs: String
-	var injuriesScars: String
-	var significantPeople: String
-	var phobiasManias: String
-	var meaningfulLocations: String
-	var arcaneTomesSpells: String
-	var treasuredPossessions: String
-	var encountersWithStrangeEntities: String
+public struct History: Equatable {
+	public var personalDescription: String
+	public var traits: String
+	public var ideologyBeliefs: String
+	public var injuriesScars: String
+	public var significantPeople: String
+	public var phobiasManias: String
+	public var meaningfulLocations: String
+	public var arcaneTomesSpells: String
+	public var treasuredPossessions: String
+	public var encountersWithStrangeEntities: String
 }
 
-struct Wealth {
-	var wealth: Int
-	var cash: Int
-	var assets: String
-	var currency: String
+public struct Wealth: Equatable {
+	public var wealth: Int
+	public var cash: Int
+	public var assets: String
+	public var currency: String
 }
 
-struct CthulhuCharacter {
-	var inestigatorData: BasicInfo
-	var health: Healht
-	var sanity: Sanity
-	var magicPoints: UsableValue
-	var luck: UsableValue
-	let characteristics: Characteristics
-	var skills: [Skill]
-	var equipment: [Item]
-	var move: Int {
+public struct CthulhuCharacter: Equatable, Identifiable {
+	public let id: UUID
+	public var inestigatorData: BasicInfo
+	public var health: Healht
+	public var sanity: Sanity
+	public var magicPoints: UsableValue
+	public var luck: UsableValue
+	public let characteristics: Characteristics
+	public var skills: [Skill]
+	public var equipment: [Item]
+	public var move: Int {
 		if characteristics.strenght < characteristics.constitution && characteristics.dexternity < characteristics.constitution {
 			return 7 - inestigatorData.age.modifier
 		} else if characteristics.strenght > characteristics.constitution && characteristics.dexternity > characteristics.constitution {
@@ -224,24 +235,25 @@ struct CthulhuCharacter {
 			return 8 - inestigatorData.age.modifier
 		}
 	}
-	var combat: Combat {
+	public var combat: Combat {
 		Combat(strenght: characteristics.strenght, constitution: characteristics.constitution)
 	}
-	var history: History
-	var wealth: Wealth
+	public var history: History
+	public var wealth: Wealth
 }
 
-extension CthulhuCharacter {
-	var mock: Self {
+public extension CthulhuCharacter {
+	static var mock: Self {
 		Self(
+			id: .init(),
 			inestigatorData: .init(
 				name: "Harvey Wolters",
-				occupation: "Journalist",
+				occupation: .init(value: "Journalist", imageName: "newspaper"),
 				age: .init(value: 42),
 				sex: .male,
 				adress: "Nowy York",
 				birthPlace: "Boston",
-				appearanceImageName: nil
+				appearanceImageName: "characterReporter"
 			),
 			health: .init(maxValue: 15, currentValue: 15),
 			sanity: .init(startingValue: 45, currentValue: 45, maxValue: 99),

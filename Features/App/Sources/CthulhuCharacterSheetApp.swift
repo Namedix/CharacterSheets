@@ -13,7 +13,12 @@ struct CthulhuCharacterSheetApp: App {
     var body: some Scene {
         WindowGroup {
 			CharacterSelectionView(
-				store: .init(initialState: Feature.State(), reducer: Feature())
+				store: .init(
+					initialState: CharacterSelection.State(
+						characters: [.mock]
+					),
+					reducer: CharacterSelection()
+				)
 			)
         }
     }

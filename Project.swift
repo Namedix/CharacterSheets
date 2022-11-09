@@ -38,7 +38,7 @@ var targets: [Target] {
 			.target(name: "Common"),
 			.target(name: "CommonUI")
 		],
-		targets: [.framework]
+		targets: [.preview, .framework]
 	)
 	targets += Target.makeFrameworkTargets(
 		name: "Tabs",
