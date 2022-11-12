@@ -20,6 +20,7 @@ public struct {{ name }}View: View {
     }
 }
 
+#if DEBUG
 struct WorkspaceView_Previews: PreviewProvider {
     static var previews: some View {
         {{ name }}View(
@@ -30,3 +31,4 @@ struct WorkspaceView_Previews: PreviewProvider {
         )
     }
 }
+#endif

@@ -5,117 +5,110 @@
 //  Created by Bartek Pichalski on 06/11/2022.
 //
 
-import SwiftUI
+import Common
 import CommonUI
 import ComposableArchitecture
-
-public struct Feature: ReducerProtocol {
-
-	// MARK: - Properties
-
-	public struct State {
-		public init() {}
-	}
-	public enum Action {}
-
-	// MARK: - Initialization
-
-	public init() {}
-
-	// MARK: - Composable Architecture
-
-	public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-
-	}
-
-}
+import SwiftUI
 
 public struct CharacterSelectionView: View {
+    // MARK: - Properties
 
-	var store: StoreOf<Feature>
-	// MARK: - Initialization
+    var store: StoreOf<CharacterSelection>
 
-	public init(store: StoreOf<Feature>) {
-		self.store = store
-	}
+    // MARK: - Initialization
 
-	// MARK: - View
+    public init(store: StoreOf<CharacterSelection>) {
+        self.store = store
+    }
+
+    // MARK: - View
 
     public var body: some View {
-		VStack {
-			headerRow(imageName: "test")
-			ScrollView(.vertical, showsIndicators: false) {
-				screenDescription
-//				systemCharacters(
-//					charactersFull: viewStore.charactersFull,
-//					selectAction: { viewStore.send(.selectCharacter($0)) }
-//				)
-			}.padding(.horizontal, Margin.large)
-			Spacer()
-		}
-		.ignoresSafeArea()
+        WithViewStore(self.store) { viewStore in
+            GeometryReader { proxy in
+                VStack(spacing: 0) {
+                    headerRow(imageName: viewStore.randomCharacterImageName)
+                        .frame(height: proxy.size.height / 3)
+                    ScrollView(.vertical, showsIndicators: false) {
+                        screenDescription
+                        systemCharacters(
+                            characters: viewStore.characters,
+                            selectAction: { _ in }
+                        )
+                    }.padding(.horizontal, Margin.large)
+                    Spacer()
+                }
+                .ignoresSafeArea()
+                .background(color: .appBlackDark)
+            }
+        }
     }
 
-	private func headerRow(imageName: String) ->  some View {
-		ZStack {
-			Rectangle()
-				.fill(LinearGradient(
-					gradient: .init(colors: [Color.appLightPurple, Color.appDarkPurple]),
-					startPoint: .init(x: 0.0, y: 0),
-					endPoint: .init(x: 1.0, y: 1.0)
-				)).frame(height: 242)
-			VStack {
-				HStack {
-					Image(imageName, bundle: CommonUIResources.bundle)
-						.padding(.top, Margin.extraLarge)
-					Spacer()
-				}
-			}
-		}
-	}
+    private func headerRow(imageName: String) -> some View {
+        ZStack {
+            Rectangle()
+                .fill(
+                    LinearGradient(
+                        gradient: .init(colors: [Color.appLightPurple, Color.appDarkPurple]),
+                        startPoint: .init(x: 0.0, y: 0),
+                        endPoint: .init(x: 1.0, y: 1.0)
+                    )
+                )
+            VStack {
+                Spacer()
+                HStack {
+                    Image(imageName, bundle: CommonUIResources.bundle)
+                        .resizable()
+                        .scaledToFit()
+                        .ignoresSafeArea(edges: .top)
+                    Spacer()
+                }
+            }
+        }
+    }
 
-	var screenDescription: some View {
-		VStack {
-			Group {
-//				SectionHeaderView(title: L10n.characterListTitle)
-//					.padding(.top, Margin.large)
-				Text(L10n.characterListDescription)
-					.textStyle(.greyRegular)
-					.padding(.top, Margin.micro)
-			}
-//			.fullWidth(alignment: .leading)
-		}
-	}
-//
-//	private func systemCharacters(
-//		charactersFull: [CharactersPerSystem],
-//		selectAction: @escaping (Character) -> Void
-//	) ->  some View {
-//		VStack {
-//			ForEach(charactersFull) { item in
-//				SectionHeaderView(title: item.system.name)
-//				ForEach(item.characters) { character in
-//					Button(action: { selectAction(character) }) {
-//						InfoTileView(
-//							image: Image(character.imageName, bundle: CommonUIResources.bundle),
-//							title: character.name,
-//							description: character.description
-//						)
-//						.defaultCard()
-//					}.padding(.top, Margin.regular)
-//				}
-//			}
-//		}
-//	}
-}
+    var screenDescription: some View {
+        VStack {
+            Group {
+                SectionHeaderView(title: L10n.characterListTitle)
+                    .padding(.top, Margin.large)
+                Text(L10n.characterListDescription)
+                    .textStyle(.greyRegular)
+                    .padding(.top, Margin.micro)
+            }
+            .fullWidth(alignment: .leading)
+        }
+    }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-		CharacterSelectionView(
-			store: Store(
-				initialState: .init(),
-				reducer: Feature()
-			)
-		)
+    private func systemCharacters(
+        characters: [CthulhuCharacter],
+        selectAction _: @escaping (Character) -> Void
+    ) -> some View {
+        VStack {
+            SectionHeaderView(title: "Cthulhu")
+            ForEach(characters) { character in
+                Button(action: {}) {
+                    InfoTileView(
+                        image: Image(character.inestigatorData.occupation.imageName, bundle: CommonUIResources.bundle),
+                        title: character.inestigatorData.name,
+                        description: character.inestigatorData.occupation.value
+                    )
+                    .defaultCard()
+                }.padding(.top, Margin.regular)
+            }
+        }
     }
 }
+
+#if DEBUG
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            CharacterSelectionView(
+                store: Store(
+                    initialState: .init(characters: [.mock]),
+                    reducer: CharacterSelection()
+                )
+            )
+        }
+    }
+#endif

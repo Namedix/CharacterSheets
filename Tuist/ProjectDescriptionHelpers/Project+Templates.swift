@@ -14,8 +14,8 @@ let deploymentTargetVersion: String = "14.0"
 
 // MARK: - Target
 
-extension Target {
-    public static func makeAppTargets(
+public extension Target {
+    static func makeAppTargets(
         name: String,
         dependencies: [TargetDependency] = [],
         testDependencies: [TargetDependency] = [],
@@ -23,22 +23,22 @@ extension Target {
         containsTests: Bool = true
     ) -> [Target] {
         var appTargets: [Target] = []
-		let appConfigurations: [Configuration] = [
-			.debug(
-				name: "Debug",
-				settings: .init()
-					.manualCodeSigning(
-						identity: "Apple Development",
-						provisioningProfileSpecifier: "Character Sheets"
-					),
-				xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")
-			),
-			.release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")),
-		]
-		let testsConfigurations: [Configuration] = [
-			.debug(name: "Debug", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
-			.release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
-		]
+        let appConfigurations: [Configuration] = [
+            .debug(
+                name: "Debug",
+                settings: .init()
+                    .manualCodeSigning(
+                        identity: "Apple Development",
+                        provisioningProfileSpecifier: "Character Sheets"
+                    ),
+                xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")
+            ),
+            .release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")),
+        ]
+        let testsConfigurations: [Configuration] = [
+            .debug(name: "Debug", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
+            .release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
+        ]
         appTargets.append(
             Target(
                 name: name,
@@ -46,11 +46,11 @@ extension Target {
                 product: .app,
                 bundleId: "\(bundlePrefix).app",
                 deploymentTarget: .iOS(targetVersion: deploymentTargetVersion, devices: .iphone),
-				infoPlist: .extendingDefault(with: ["UILaunchStoryboardName": "LaunchScreen"]),
+                infoPlist: .extendingDefault(with: ["UILaunchStoryboardName": "LaunchScreen"]),
                 sources: ["Features/\(name)/Sources/**/*.swift"],
-                resources: ["Features/\(name)/Resources/**/*" ],
+                resources: ["Features/\(name)/Resources/**/*"],
                 dependencies: dependencies,
-				settings: .settings(configurations: appConfigurations),
+                settings: .settings(configurations: appConfigurations),
                 launchArguments: launchArguments
             )
         )
@@ -66,16 +66,16 @@ extension Target {
                     sources: ["Features/\(name)/Tests/**/*.swift"],
                     dependencies: [
                         .target(name: name),
-                        .xctest
+                        .xctest,
                     ] + testDependencies,
-					settings: .settings(configurations: testsConfigurations)
+                    settings: .settings(configurations: testsConfigurations)
                 )
             )
         }
         return appTargets
     }
 
-    public static func makeFrameworkTargets(
+    static func makeFrameworkTargets(
         name: String,
         dependencies: [TargetDependency] = [],
         testDependencies: [TargetDependency] = [],
@@ -83,13 +83,13 @@ extension Target {
         targets: Set<uFeatureTarget> = Set([.framework, .tests, .preview, .testing]),
         containsResources: Bool = false,
         dependsOnXCTest: Bool = false,
-        bridgingHeaderPath: String? = nil,
+        bridgingHeaderPath _: String? = nil,
         frameworkInfoPlist: InfoPlist = .default
     ) -> [Target] {
         // Test dependencies
         var targetTestDependencies: [TargetDependency] = [
             .target(name: "\(name)"),
-            .xctest
+            .xctest,
         ] + testDependencies
 
         if targets.contains(.testing) {
@@ -102,19 +102,27 @@ extension Target {
             targetDependencies.append(.xctest)
         }
 
-		// Configurations
-		let frameworkConfigurations: [Configuration] = [
-			.debug(name: "Debug", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Framework.xcconfig")),
-			.release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Framework.xcconfig")),
-		]
-		let testsConfigurations: [Configuration] = [
-			.debug(name: "Debug", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
-			.release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
-		]
-		let appConfigurations: [Configuration] = [
-			.debug(name: "Debug", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
-			.release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
-		]
+        // Configurations
+        let frameworkConfigurations: [Configuration] = [
+            .debug(name: "Debug", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Framework.xcconfig")),
+            .release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Framework.xcconfig")),
+        ]
+        let testsConfigurations: [Configuration] = [
+            .debug(name: "Debug", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
+            .release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
+        ]
+        let appConfigurations: [Configuration] = [
+            .debug(
+                name: "Debug",
+                settings: .init()
+                    .manualCodeSigning(
+                        identity: "Apple Development",
+                        provisioningProfileSpecifier: "Character Sheets"
+                    ),
+                xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")
+            ),
+            .release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")),
+        ]
 
         // Targets
         var projectTargets: [Target] = []
@@ -130,7 +138,7 @@ extension Target {
                     sources: ["Features/\(name)/Sources/**"],
                     resources: containsResources ? ["Features/\(name)/Resources/**/*"] : [],
                     dependencies: targetDependencies,
-					settings: .settings(configurations: frameworkConfigurations)
+                    settings: .settings(configurations: frameworkConfigurations)
                 )
             )
         }
@@ -148,7 +156,7 @@ extension Target {
                     dependencies: targetDependencies.contains(.target(name: "Common")) ?
                         [.target(name: "\(name)"), .target(name: "Common")] :
                         [.target(name: "\(name)")],
-					settings: .settings(configurations: frameworkConfigurations)
+                    settings: .settings(configurations: frameworkConfigurations)
                 )
             )
         }
@@ -163,7 +171,7 @@ extension Target {
                     infoPlist: .default,
                     sources: ["Features/\(name)/Tests/**/*.swift"],
                     dependencies: targetTestDependencies,
-					settings: .settings(configurations: testsConfigurations)
+                    settings: .settings(configurations: testsConfigurations)
                 )
             )
         }
@@ -180,7 +188,7 @@ extension Target {
                     dependencies: targets.contains(.testing) ?
                         [.target(name: "\(name)"), .target(name: "\(name)Testing")] + previewDependencies :
                         [.target(name: "\(name)")] + previewDependencies,
-					settings: .settings(configurations: appConfigurations)
+                    settings: .settings(configurations: appConfigurations)
                 )
             )
         }

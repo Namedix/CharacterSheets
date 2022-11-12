@@ -9,3 +9,5 @@
 
 // Apply common settings specific to iOS
 #include "iOS-Base.xcconfig"
+
+DEVELOPMENT_TEAM = UW4TA6YP3V
