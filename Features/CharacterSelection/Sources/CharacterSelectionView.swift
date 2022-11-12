@@ -9,11 +9,16 @@ import Common
 import CommonUI
 import ComposableArchitecture
 import SwiftUI
+import Tabs
 
 public struct CharacterSelectionView: View {
     // MARK: - Properties
 
     var store: StoreOf<CharacterSelection>
+	@State var path = NavigationPath()
+	enum Route: Hashable {
+		case tabs
+	}
 
     // MARK: - Initialization
 
@@ -24,24 +29,41 @@ public struct CharacterSelectionView: View {
     // MARK: - View
 
     public var body: some View {
-        WithViewStore(self.store) { viewStore in
-            GeometryReader { proxy in
-                VStack(spacing: 0) {
-                    headerRow(imageName: viewStore.randomCharacterImageName)
-                        .frame(height: proxy.size.height / 3)
-                    ScrollView(.vertical, showsIndicators: false) {
-                        screenDescription
-                        systemCharacters(
-                            characters: viewStore.characters,
-                            selectAction: { _ in }
-                        )
-                    }.padding(.horizontal, Margin.large)
-                    Spacer()
-                }
-                .ignoresSafeArea()
-                .background(color: .appBlackDark)
-            }
-        }
+		NavigationStack(path: $path) {
+			WithViewStore(self.store) { viewStore in
+				GeometryReader { proxy in
+					VStack(spacing: 0) {
+						headerRow(imageName: viewStore.randomCharacterImageName)
+							.frame(height: proxy.size.height / 3)
+						ScrollView(.vertical, showsIndicators: false) {
+							screenDescription
+							systemCharacters(
+								characters: viewStore.characters,
+								selectAction: { viewStore.send(.didSelectCharacter($0)) }
+							)
+						}.padding(.horizontal, Margin.large)
+						Spacer()
+					}
+					.ignoresSafeArea()
+					.background(color: .appBlackDark)
+					.navigationDestination(for: Route.self) { route in
+						switch route {
+						case .tabs:
+							IfLetStore(
+								self.store.scope(
+									state: \.tabsState,
+									action: CharacterSelection.Action.tabs
+								),
+								then: { store in
+									TabsView(store: store)
+										.navigationBarHidden(true)
+								}
+							)
+						}
+					}
+				}
+			}
+		}
     }
 
     private func headerRow(imageName: String) -> some View {
@@ -82,12 +104,15 @@ public struct CharacterSelectionView: View {
 
     private func systemCharacters(
         characters: [CthulhuCharacter],
-        selectAction _: @escaping (Character) -> Void
+        selectAction: @escaping (CthulhuCharacter) -> Void
     ) -> some View {
         VStack {
-            SectionHeaderView(title: "Cthulhu")
+            SectionHeaderView(title: "Zew Cthulhu 7ed")
             ForEach(characters) { character in
-                Button(action: {}) {
+				Button(action: {
+					selectAction(character)
+					path.append(Route.tabs)
+				}) {
                     InfoTileView(
                         image: Image(character.inestigatorData.occupation.imageName, bundle: CommonUIResources.bundle),
                         title: character.inestigatorData.name,
