@@ -15,10 +15,10 @@ public struct CharacterSelectionView: View {
     // MARK: - Properties
 
     var store: StoreOf<CharacterSelection>
-	@State var path = NavigationPath()
-	enum Route: Hashable {
-		case tabs
-	}
+    @State var path = NavigationPath()
+    enum Route: Hashable {
+        case tabs
+    }
 
     // MARK: - Initialization
 
@@ -29,41 +29,41 @@ public struct CharacterSelectionView: View {
     // MARK: - View
 
     public var body: some View {
-		NavigationStack(path: $path) {
-			WithViewStore(self.store) { viewStore in
-				GeometryReader { proxy in
-					VStack(spacing: 0) {
-						headerRow(imageName: viewStore.randomCharacterImageName)
-							.frame(height: proxy.size.height / 3)
-						ScrollView(.vertical, showsIndicators: false) {
-							screenDescription
-							systemCharacters(
-								characters: viewStore.characters,
-								selectAction: { viewStore.send(.didSelectCharacter($0)) }
-							)
-						}.padding(.horizontal, Margin.large)
-						Spacer()
-					}
-					.ignoresSafeArea()
-					.background(color: .appBlackDark)
-					.navigationDestination(for: Route.self) { route in
-						switch route {
-						case .tabs:
-							IfLetStore(
-								self.store.scope(
-									state: \.tabsState,
-									action: CharacterSelection.Action.tabs
-								),
-								then: { store in
-									TabsView(store: store)
-										.navigationBarHidden(true)
-								}
-							)
-						}
-					}
-				}
-			}
-		}
+        NavigationStack(path: $path) {
+            WithViewStore(self.store) { viewStore in
+                GeometryReader { proxy in
+                    VStack(spacing: 0) {
+                        headerRow(imageName: viewStore.randomCharacterImageName)
+                            .frame(height: proxy.size.height / 3)
+                        ScrollView(.vertical, showsIndicators: false) {
+                            screenDescription
+                            systemCharacters(
+                                characters: viewStore.characters,
+                                selectAction: { viewStore.send(.didSelectCharacter($0)) }
+                            )
+                        }.padding(.horizontal, Margin.large)
+                        Spacer()
+                    }
+                    .ignoresSafeArea()
+                    .background(color: .appBlackDark)
+                    .navigationDestination(for: Route.self) { route in
+                        switch route {
+                        case .tabs:
+                            IfLetStore(
+                                self.store.scope(
+                                    state: \.tabsState,
+                                    action: CharacterSelection.Action.tabs
+                                ),
+                                then: { store in
+                                    TabsView(store: store)
+                                        .navigationBarHidden(true)
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private func headerRow(imageName: String) -> some View {
@@ -109,10 +109,10 @@ public struct CharacterSelectionView: View {
         VStack {
             SectionHeaderView(title: "Zew Cthulhu 7ed")
             ForEach(characters) { character in
-				Button(action: {
-					selectAction(character)
-					path.append(Route.tabs)
-				}) {
+                Button(action: {
+                    selectAction(character)
+                    path.append(Route.tabs)
+                }) {
                     InfoTileView(
                         image: Image(character.inestigatorData.occupation.imageName, bundle: CommonUIResources.bundle),
                         title: character.inestigatorData.name,

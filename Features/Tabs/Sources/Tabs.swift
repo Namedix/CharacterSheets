@@ -1,22 +1,22 @@
-import ComposableArchitecture
 import Common
+import ComposableArchitecture
 
 public struct Tabs: ReducerProtocol {
     // MARK: - Properties
 
-	public struct State: Equatable {
-		let character: CthulhuCharacter
+    public struct State: Equatable {
+        let character: CthulhuCharacter
 
         public init(character: CthulhuCharacter) {
-			self.character = character
-		}
+            self.character = character
+        }
     }
 
-	public enum Action: Equatable {}
+    public enum Action: Equatable {}
 
     // MARK: - Initialization
 
-	public init() {}
+    public init() {}
 
     // MARK: - Composable Architecture
 

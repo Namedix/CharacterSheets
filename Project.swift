@@ -37,7 +37,7 @@ var targets: [Target] {
         dependencies: [
             .target(name: "Common"),
             .target(name: "CommonUI"),
-			.target(name: "Tabs")
+            .target(name: "Tabs"),
         ],
         targets: [.preview, .framework]
     )
