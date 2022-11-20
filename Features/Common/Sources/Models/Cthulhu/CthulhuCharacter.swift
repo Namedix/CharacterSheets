@@ -103,69 +103,104 @@ public struct Skill: Equatable {
     }
 }
 
-public enum ItemType: String, Equatable {
+public enum ItemCategory: Equatable {
     case manClothes
-    case womanClothes
-    case food
-    case drink
-    case travelingEquipment
-    case meeleWeapon
-    case rangeWeapon
-    case throwingWeapon
+	case shortRangeWeapon(ItemWeaponDetails)
+	case semiAutomaticWeapon(ItemWeaponDetails)
+	case medicine
+	case ammo
     case misc
+
+	public var displayName: String {
+		switch self {
+		case .manClothes:
+			return "Ubrania męskie"
+		case .shortRangeWeapon:
+			return "Broń krótka"
+		case .semiAutomaticWeapon:
+			return "Karabin automatyczny"
+		case .medicine:
+			return "Środki medyczne"
+		case .ammo:
+			return "Amunicja"
+		case .misc:
+			return "Rozmaitości"
+		}
+	}
+
+	public var imageName: String {
+		switch self {
+		case .manClothes:
+			return "fedora"
+		case .shortRangeWeapon:
+			return "luger"
+		case .semiAutomaticWeapon:
+			return "ak47"
+		case .medicine:
+			return "medicine-pills"
+		case .ammo:
+			return "machine-gun-magazine"
+		case .misc:
+			return "backpack"
+		}
+	}
 }
 
-public class Item: Equatable {
-    public let name: String
-    public let type: ItemType
+public struct ItemWeaponDetails: Equatable {
+	public let value: Int
+	public let damage: String
+	public let range: Int?
+	public let minAttacks: Int?
+	public let maxAttacks: Int?
+	public let ammo: Int?
+	public let malfunction: Int?
 
-    public init(name: String, type: ItemType) {
-        self.name = name
-        self.type = type
-    }
-
-    public static func == (lhs: Item, rhs: Item) -> Bool {
-        lhs.name == rhs.name && lhs.type == rhs.type
-    }
+	public init(
+		value: Int,
+		damage: String,
+		range: Int? = nil,
+		minAttacks: Int? = nil,
+		maxAttacks: Int? = nil,
+		ammo: Int? = nil,
+		malfunction: Int? = nil
+	) {
+		self.value = value
+		self.damage = damage
+		self.range = range
+		self.minAttacks = minAttacks
+		self.maxAttacks = maxAttacks
+		self.ammo = ammo
+		self.malfunction = malfunction
+	}
 }
 
-public class Weapon: Item {
-    public let value: Int
-    public let damage: String
-    public let range: Int?
-    public let minAttacks: Int?
-    public let maxAttacks: Int?
-    public let ammo: Int?
-    public let malfunction: Int?
+public struct StackableDetails: Equatable {
+	public init(count: Int, unit: String) {
+		self.count = count
+		self.unit = unit
+	}
 
-    public var halfValue: Int {
-        value / 2
-    }
+	public var count: Int
+	public let unit: String
+}
 
-    public var fifthValue: Int {
-        value / 5
-    }
+public struct Item: Equatable, Identifiable  {
+	public let id: UUID
+	public let name: String
+	public let category: ItemCategory
+	public var stackableDetails: StackableDetails?
 
-    init(
-        name: String,
-        type: ItemType,
-        value: Int,
-        damage: String,
-        range: Int?,
-        minAttacks: Int?,
-        maxAttacks: Int?,
-        ammo: Int?,
-        malfunction: Int?
-    ) {
-        self.value = value
-        self.damage = damage
-        self.range = range
-        self.minAttacks = minAttacks
-        self.maxAttacks = maxAttacks
-        self.ammo = ammo
-        self.malfunction = malfunction
-        super.init(name: name, type: type)
-    }
+	public init(
+		id: UUID = .init(),
+		name: String,
+		category: ItemCategory,
+		stackableDetails: StackableDetails? = nil
+	) {
+		self.id = id
+		self.name = name
+		self.category = category
+		self.stackableDetails = stackableDetails
+	}
 }
 
 public struct Combat: Equatable {
@@ -210,11 +245,117 @@ public struct History: Equatable {
     public var encountersWithStrangeEntities: String
 }
 
+public enum WealthLevel: CaseIterable {
+	case penniless
+	case poor
+	case average
+	case wealthy
+	case rich
+	case superRich
+
+	init(value: Int) {
+		switch value {
+		case 1 ... 9:
+			self = .poor
+		case 10 ... 49:
+			self = .average
+		case 50 ... 89:
+			self = .wealthy
+		case 90 ... 98:
+			self = .rich
+		case 99 ... Int.max:
+			self = .superRich
+		default:
+			self = .penniless
+		}
+	}
+
+	public var displayName: String {
+		switch self {
+		case .penniless:
+			return "Penniless"
+		case .poor:
+			return "Poor"
+		case .average:
+			return "Average"
+		case .wealthy:
+			return "Wealthy"
+		case .rich:
+			return "Rich"
+		case .superRich:
+			return "Super Rich"
+		}
+	}
+
+	public var spendingLevel: Double {
+		switch self {
+		case .penniless:
+			return 0.5
+		case .poor:
+			return 2
+		case .average:
+			return 10
+		case .wealthy:
+			return 50
+		case .rich:
+			return 250
+		case .superRich:
+			return 5000
+		}
+	}
+}
+
+public struct WealthAsset: Equatable, Hashable {
+	public init(name: String, value: Int) {
+		self.name = name
+		self.value = value
+	}
+
+	public var name: String
+	public var value: Int
+}
+
 public struct Wealth: Equatable {
-    public var wealth: Int
-    public var cash: Int
-    public var assets: String
-    public var currency: String
+	public init(wealthLevel: WealthLevel, cashes: [Cash], assets: [WealthAsset]) {
+		self.wealthLevel = wealthLevel
+		self.cashes = cashes
+		self.assets = assets
+	}
+
+    public var wealthLevel: WealthLevel
+	public var cashes: [Cash]
+    public var assets: [WealthAsset]
+
+	public var totalAssetsWealth: Int {
+		assets.map(\.value).reduce(0, +)
+	}
+}
+
+public struct Cash: Equatable, Identifiable {
+	public init(currency: String, value: Int, type: CashType) {
+		self.currency = currency
+		self.value = value
+		self.type = type
+	}
+
+	public let id: UUID = .init()
+	public let currency: String
+	public var value: Int
+	public let type: CashType
+
+	public enum CashType {
+		case bills
+		case coins
+
+		public var imageName: String {
+			switch self {
+			case .coins:
+				return "coins"
+			case .bills:
+				return "money-stack"
+			}
+		}
+	}
 }
 
 public struct CthulhuCharacter: Equatable, Identifiable {
@@ -274,19 +415,22 @@ public extension CthulhuCharacter {
             ),
             skills: [],
             equipment: [
-                Weapon(
-                    name: "Brawl",
-                    type: .meeleWeapon,
-                    value: 25,
-                    damage: "1k3 + MO",
-                    range: nil,
-                    minAttacks: 1,
-                    maxAttacks: 1,
-                    ammo: nil,
-                    malfunction: nil
-                ),
-                .init(name: "Pencil and notebook", type: .misc),
-                .init(name: "Camera", type: .misc),
+				Item(
+					name: "Brawl",
+					category: .shortRangeWeapon(
+						.init(
+							value: 25,
+							damage: "1k3 + MO",
+							range: nil,
+							minAttacks: 1,
+							maxAttacks: 1,
+							ammo: nil,
+							malfunction: nil
+						)
+					)
+				),
+				Item(name: "Pencil and notebook", category: .misc),
+				Item(name: "Camera", category: .misc),
             ],
             history: .init(
                 personalDescription: "Handsome, good looking and with a little bit of overweight.",
@@ -300,7 +444,11 @@ public extension CthulhuCharacter {
                 treasuredPossessions: "His uncle artifacts reside in Harvey's workshop",
                 encountersWithStrangeEntities: ""
             ),
-            wealth: .init(wealth: 10, cash: 82, assets: "2050$ Apartment", currency: "$")
+			wealth: .init(
+				wealthLevel: .average,
+				cashes: [.init(currency: "Dollar", value: 20, type: .bills), .init(currency: "Cent", value: 50, type: .coins)],
+				assets: [.init(name: "Samochód", value: 150), .init(name: "Dom", value: 2050)]
+			)
         )
     }
 }

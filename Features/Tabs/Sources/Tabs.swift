@@ -1,20 +1,25 @@
 import Common
 import ComposableArchitecture
 import Options
+import Equipment
 
 public struct Tabs: ReducerProtocol {
     // MARK: - Properties
 
     public struct State: Equatable {
         var character: CthulhuCharacter
-        var miscState = Options.State()
+		var equipmentState: Equipment.State
+		var miscState: Options.State
 
         public init(character: CthulhuCharacter) {
             self.character = character
+			self.equipmentState = .init(items: character.equipment, wealth: character.wealth)
+			self.miscState = .init()
         }
     }
 
     public enum Action: Equatable {
+		case equipment(Equipment.Action)
         case misc(Options.Action)
     }
 
@@ -25,6 +30,9 @@ public struct Tabs: ReducerProtocol {
     // MARK: - Composable Architecture
 
     public var body: some ReducerProtocol<State, Action> {
+		Scope(state: \.equipmentState, action: /Action.equipment) {
+			Equipment()
+		}
         Scope(state: \.miscState, action: /Action.misc) {
             Options()
         }
