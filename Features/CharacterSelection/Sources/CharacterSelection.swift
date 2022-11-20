@@ -9,6 +9,7 @@
 import Common
 import ComposableArchitecture
 import Foundation
+import Tabs
 
 public struct CharacterSelection: ReducerProtocol {
     // MARK: - Properties
@@ -17,6 +18,7 @@ public struct CharacterSelection: ReducerProtocol {
         // MARK: - Properties
 
         let characters: [CthulhuCharacter]
+        var tabsState: Tabs.State?
         var randomCharacterImageName: String {
             characters.randomElement()?.inestigatorData.appearanceImageName ?? Constants.defaultImageName
         }
@@ -29,7 +31,8 @@ public struct CharacterSelection: ReducerProtocol {
     }
 
     public enum Action: Equatable {
-        case didSelectCharacter(CthulhuCharacter)
+        case didSelectCharacter(CthulhuCharacter?)
+        case tabs(Tabs.Action)
     }
 
     // MARK: - Initialization
@@ -38,12 +41,20 @@ public struct CharacterSelection: ReducerProtocol {
 
     // MARK: - Composable Architecture
 
-    public func reduce(into _: inout State, action: Action) -> EffectTask<Action> {
-        switch action {
-        case .didSelectCharacter:
-            // TODO: - Navigate to Tabs
-            return .none
+    public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
+        Reduce<State, Action> { state, action in
+            switch action {
+            case let .didSelectCharacter(character):
+                state.tabsState = character == nil ? nil : .init(character: character!)
+                return .none
+            case .tabs:
+                return .none
+            }
         }
+        .ifLet(\State.tabsState, action: /CharacterSelection.Action.tabs) {
+            Tabs()
+        }
+        .reduce(into: &state, action: action)
     }
 }
 
