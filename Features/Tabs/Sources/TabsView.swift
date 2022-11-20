@@ -1,8 +1,8 @@
 import CommonUI
 import ComposableArchitecture
+import Equipment
 import Options
 import SwiftUI
-import Equipment
 
 public struct TabsView: View {
     // MARK: - Properties
@@ -39,25 +39,25 @@ public struct TabsView: View {
                             Text("Skills")
                         }
                         .tag(2)
-					EquipmentView(
-						store: self.store.scope(
-							state: \.equipmentState,
-							action: Tabs.Action.equipment
-						)
-					)
-					.tabItem {
-						Image.equipmentTabBar
-						Text("Equipment")
-					}
-					.tag(3)
-					OptionsView(
-						store: self.store.scope(
-							state: \.miscState,
-							action: Tabs.Action.misc
-						)
-					)
-					.tabItem {
-						Image.optionsTabBar
+                    EquipmentView(
+                        store: self.store.scope(
+                            state: \.equipmentState,
+                            action: Tabs.Action.equipment
+                        )
+                    )
+                    .tabItem {
+                        Image.equipmentTabBar
+                        Text("Equipment")
+                    }
+                    .tag(3)
+                    OptionsView(
+                        store: self.store.scope(
+                            state: \.miscState,
+                            action: Tabs.Action.misc
+                        )
+                    )
+                    .tabItem {
+                        Image.optionsTabBar
                         Text("More")
                     }
                     .tag(4)

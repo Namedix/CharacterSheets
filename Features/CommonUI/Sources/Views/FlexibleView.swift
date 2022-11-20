@@ -1,12 +1,12 @@
 import SwiftUI
 
 public struct FlexibleView<Data: Collection, Content: View>: View where Data.Element: Hashable {
-	public init(data: Data, spacing: CGFloat, alignment: HorizontalAlignment, content: @escaping (Data.Element) -> Content) {
-		self.data = data
-		self.spacing = spacing
-		self.alignment = alignment
-		self.content = content
-	}
+    public init(data: Data, spacing: CGFloat, alignment: HorizontalAlignment, content: @escaping (Data.Element) -> Content) {
+        self.data = data
+        self.spacing = spacing
+        self.alignment = alignment
+        self.content = content
+    }
 
     let data: Data
     let spacing: CGFloat
@@ -42,7 +42,7 @@ struct _FlexibleView<Data: Collection, Content: View>: View where Data.Element: 
     let content: (Data.Element) -> Content
     @State var elementsSize: [Data.Element: CGSize] = [:]
 
-    var body : some View {
+    var body: some View {
         VStack(alignment: alignment, spacing: spacing) {
             ForEach(computeRows(), id: \.self) { rowElements in
                 HStack(spacing: spacing) {
