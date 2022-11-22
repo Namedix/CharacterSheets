@@ -43,8 +43,8 @@ public struct EquipmentView: View {
                                     } else {
                                         AmountTileView(
                                             value: item.stackableDetails?.count ?? 0,
-                                            addAction: { viewStore.send(.addOneToItem(item)) },
-                                            reduceAction: { viewStore.send(.removeOneFromItem(item)) }
+                                            addAction: { viewStore.send(.addToItem(1, item)) },
+                                            reduceAction: { viewStore.send(.removeFromItem(1, item)) }
                                         ).flipAnimation(isFlipped: true)
                                     }
                                 }
@@ -112,6 +112,10 @@ public struct EquipmentView: View {
                 self.store.scope(state: \.confirmationDialogState),
                 dismiss: Equipment.Action.dismissDialog
             )
+            .alert(
+                self.store.scope(state: \.alertState),
+                dismiss: Equipment.Action.dismissAlert
+            )
         }
     }
 
@@ -156,7 +160,7 @@ public struct EquipmentView: View {
         Group {
             Text(name + ", ")
                 .foregroundColor(.appGrey) +
-                Text("\(count) \(unit)")
+            Text("\(count) \(unit)")
                 .foregroundColor(.appWhite)
                 .fontWeight(.bold)
         }
@@ -173,30 +177,30 @@ public struct EquipmentView: View {
 }
 
 #if DEBUG
-    struct WorkspaceView_Previews: PreviewProvider {
-        static var previews: some View {
-            EquipmentView(
-                store: Store(
-                    initialState: .init(
-                        items: [
-                            Item(name: "FN fal karabin samoczynno-samopowtarzalny", category: .ammo),
-                            Item(name: "Pistolet skałkowy", category: .ammo),
-                            Item(name: "Aspiryna", category: .medicine, stackableDetails: .init(count: 12, unit: "sztuk")),
-                            Item(name: "Garnitur z wełny czesankowej", category: .manClothes),
-                            Item(name: "Maszyna do pisania typu Haris", category: .misc),
-                            Item(name: "Spirytus", category: .medicine, stackableDetails: .init(count: 2, unit: "litry")),
-                            Item(name: "10 tomowa encyklopedia", category: .misc),
-                            Item(name: "Loftki kaliber 10", category: .ammo, stackableDetails: .init(count: 25, unit: "sztuk")),
-                        ],
-                        wealth: .init(
-                            wealthLevel: .average,
-                            cashes: [.init(currency: "Dollar", value: 20, type: .bills), .init(currency: "Cent", value: 50, type: .coins)],
-                            assets: [.init(name: "Dom", value: 150)]
-                        )
-                    ),
-                    reducer: Equipment()
-                )
+struct WorkspaceView_Previews: PreviewProvider {
+    static var previews: some View {
+        EquipmentView(
+            store: Store(
+                initialState: .init(
+                    items: [
+                        Item(name: "FN fal karabin samoczynno-samopowtarzalny", category: .ammo),
+                        Item(name: "Pistolet skałkowy", category: .ammo),
+                        Item(name: "Aspiryna", category: .medicine, stackableDetails: .init(count: 12, unit: "sztuk")),
+                        Item(name: "Garnitur z wełny czesankowej", category: .manClothes),
+                        Item(name: "Maszyna do pisania typu Haris", category: .misc),
+                        Item(name: "Spirytus", category: .medicine, stackableDetails: .init(count: 2, unit: "litry")),
+                        Item(name: "10 tomowa encyklopedia", category: .misc),
+                        Item(name: "Loftki kaliber 10", category: .ammo, stackableDetails: .init(count: 25, unit: "sztuk")),
+                    ],
+                    wealth: .init(
+                        wealthLevel: .average,
+                        cashes: [.init(currency: "Dollar", value: 20, type: .bills), .init(currency: "Cent", value: 50, type: .coins)],
+                        assets: [.init(name: "Dom", value: 150)]
+                    )
+                ),
+                reducer: Equipment()
             )
-        }
+        )
     }
+}
 #endif
