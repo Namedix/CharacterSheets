@@ -46,6 +46,7 @@ var targets: [Target] {
         dependencies: [
             .target(name: "Common"),
             .target(name: "CommonUI"),
+            .target(name: "Skills"),
             .target(name: "Options"),
         ],
         targets: [.preview, .framework]

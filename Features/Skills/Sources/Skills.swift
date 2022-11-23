@@ -87,6 +87,9 @@ public struct Skills: ReducerProtocol {
                 state.filteredSkillsIds = []
             } else {
                 state.filteredSkillsIds = state.skills.filter { L10n.localizedString($0.localizedKey).lowercased().contains(input.lowercased()) }.map(\.id)
+                if state.filteredSkillsIds.isEmpty {
+                    state.filteredSkillsIds = [-1]
+                }
             }
             return .none
         case .didClearSearch:

@@ -102,3 +102,11 @@
 "Skill_intimidate" = "Zastraszanie";
 "Skill_zoology" = "Zoologia";
 "Skill_sleight_of_hand" = "Zręczne Palce";
+
+// MARK: Options
+"options_rules_title" = "Zasady";
+"options_rules_description" = "Skrót zasad dotyczacych testów atrybutów i leczenia";
+"options_dices_title" = "Kostki";
+"options_dices_description" = "Kostki których możesz potrzebować aczkolwiek zawsze lepiej rzucać swoimi!";
+"options_changeCharacter_title" = "Zmień postać";
+"options_changeCharacter_description" = "Czy aby napewno jesteś pewien że ta postać nie zasłużyła na odrobine zabawy?";

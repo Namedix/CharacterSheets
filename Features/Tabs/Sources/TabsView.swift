@@ -1,21 +1,22 @@
 import CommonUI
 import ComposableArchitecture
 import Options
+import Skills
 import SwiftUI
 
 public struct TabsView: View {
     // MARK: - Properties
-
+    
     var store: StoreOf<Tabs>
-
+    
     // MARK: - Initialization
-
+    
     public init(store: StoreOf<Tabs>) {
         self.store = store
     }
-
+    
     // MARK: - View
-
+    
     public var body: some View {
         WithViewStore(self.store) { _ in
             TabView {
@@ -32,12 +33,17 @@ public struct TabsView: View {
                             Text("Fighting")
                         }
                         .tag(1)
-                    Text("Skills")
-                        .tabItem {
-                            Image.skillsTabBar
-                            Text("Skills")
-                        }
-                        .tag(2)
+                    SkillsView(
+                        store: self.store.scope(
+                            state: \.skillsState,
+                            action: Tabs.Action.skills
+                        )
+                    )
+                    .tabItem {
+                        Image.skillsTabBar
+                        Text("Skills")
+                    }
+                    .tag(2)
                     Text("Equipment")
                         .tabItem {
                             Image.equipmentTabBar

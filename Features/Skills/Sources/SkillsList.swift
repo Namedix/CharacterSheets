@@ -113,6 +113,7 @@ public struct SkillsList: View {
                                 .frame(width: 128, alignment: .center)
                                 .defaultLightCard()
                             }
+                            .padding(.top, Margin.small)
                         }
                     }
                 }
