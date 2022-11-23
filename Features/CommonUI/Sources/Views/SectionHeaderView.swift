@@ -42,7 +42,7 @@ public struct SectionHeaderView: View {
                     .frame(width: Sizes.normal, height: Sizes.normal)
             }
         }
-        .padding(.horizontal, Margin.regular)
+        .padding(.horizontal, Margin.small)
         .padding(.vertical, Margin.small)
     }
 }

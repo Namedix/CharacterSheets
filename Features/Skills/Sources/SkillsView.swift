@@ -18,77 +18,75 @@ public struct SkillsView: View {
     // MARK: - View
     
     public var body: some View {
-//        GeometryReader { geo in
-            WithViewStore(self.store) { viewStore in
-                ScrollView(showsIndicators: false) {
-                    SectionHeaderView(
-                        title: L10n.skillsTitle,
-                        image: .filterSkills,
-                        rightAction: {
-                            withAnimation {
-                                _ = viewStore.send(.didFilterUsedSkills)
-                            }
-                        },
-                        // TODO: Add modal to learn skills
-                        secondaryImage: .learn) {
-                            withAnimation {
-                                _ = viewStore.send(.didLearnNewSkill)
-                            }
+        WithViewStore(self.store) { viewStore in
+            ScrollView(showsIndicators: false) {
+                SectionHeaderView(
+                    title: L10n.skillsTitle,
+                    image: .filterSkills,
+                    rightAction: {
+                        withAnimation {
+                            _ = viewStore.send(.didFilterUsedSkills)
                         }
-                    HStack {
-                        Image.search
-                        TextField(
-                            L10n.skillsSearch,
-                            text: .init(
-                                get: { viewStore.searchQuery },
-                                set: { query in
-                                    withAnimation {
-                                        _ = viewStore.send(.didFillSearchInput(query))
-                                    }
-                                }
-                            )
-                        )
-                        if viewStore.searchQuery != "" {
-                            Image(systemName: "xmark.circle.fill")
-                                .foregroundColor(Color.appBlackDark)
-                                .onTapGesture {
-                                    withAnimation {
-                                        _ = viewStore.send(.didClearSearch)
-                                    }
-                                }
+                    },
+                    // TODO: Add modal to learn skills
+                    secondaryImage: .learn) {
+                        withAnimation {
+                            _ = viewStore.send(.didLearnNewSkill)
                         }
                     }
-                    .padding(Margin.regular)
-                    .background(Color.appLightDark)
-                    .cornerRadius(CornerRadius.standard)
-                    .padding(.bottom, Margin.medium)
-                    SkillsList(
-                        skills: viewStore.filteredSkills,
-                        callback: { skill in
-                            viewStore.send(.didUseAbility(skill))
-                        },
-                        longCallback: { skill in
-                            viewStore.send(.didStartUpgrade(skill))
-                        },
-                        lowerCallback: { skill in
-                            viewStore.send(.didLowerSkill(skill))
-                        },
-                        raiseCallback: { skill in
-                            viewStore.send(.didRaiseSkill(skill))
-                        },
-                        confirmCallback: { skill in
-                            viewStore.send(.didFinishUpgrade(skill))
-                        }
+                HStack {
+                    Image.search
+                    TextField(
+                        L10n.skillsSearch,
+                        text: .init(
+                            get: { viewStore.searchQuery },
+                            set: { query in
+                                withAnimation {
+                                    _ = viewStore.send(.didFillSearchInput(query))
+                                }
+                            }
+                        )
                     )
-                    .padding(.trailing, Margin.micro)
-                    Text(L10n.skillsTooltip)
-                        .textStyle(.greyTinyMedium)
-                    Spacer()
+                    if viewStore.searchQuery != "" {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(Color.appBlackDark)
+                            .onTapGesture {
+                                withAnimation {
+                                    _ = viewStore.send(.didClearSearch)
+                                }
+                            }
+                    }
                 }
-                .padding(.top, 0.1)
-                .padding(.horizontal, Margin.medium)
-                .background(color: .appBlackDark)
-//            }
+                .padding(Margin.small)
+                .background(Color.appLightDark)
+                .cornerRadius(CornerRadius.standard)
+                SkillsList(
+                    skills: viewStore.filteredSkills,
+                    callback: { skill in
+                        viewStore.send(.didUseAbility(skill))
+                    },
+                    longCallback: { skill in
+                        viewStore.send(.didStartUpgrade(skill))
+                    },
+                    lowerCallback: { skill in
+                        viewStore.send(.didLowerSkill(skill))
+                    },
+                    raiseCallback: { skill in
+                        viewStore.send(.didRaiseSkill(skill))
+                    },
+                    confirmCallback: { skill in
+                        viewStore.send(.didFinishUpgrade(skill))
+                    }
+                )
+                .padding(.top, Margin.medium)
+                .padding(.trailing, Margin.micro)
+                Text(L10n.skillsTooltip)
+                    .textStyle(.greyTinyMedium)
+                Spacer()
+            }
+            .padding(.horizontal, Margin.medium)
+            .padding(.top, 1)
+            .background(color: .appBlackDark)
         }
     }
 }
