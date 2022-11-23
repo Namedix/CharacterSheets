@@ -10,7 +10,7 @@ public enum uFeatureTarget {
 }
 
 let bundlePrefix: String = "com.rook"
-let deploymentTargetVersion: String = "14.0"
+let deploymentTargetVersion: String = "16.0"
 
 // MARK: - Target
 
