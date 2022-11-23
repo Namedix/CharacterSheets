@@ -17,7 +17,7 @@ public struct CharacterSelection: ReducerProtocol {
     public struct State: Equatable {
         // MARK: - Properties
 
-        var characters: [CthulhuCharacter]
+        let characters: [CthulhuCharacter]
         var tabsState: Tabs.State?
         var randomCharacterImageName: String {
             characters.randomElement()?.inestigatorData.appearanceImageName ?? Constants.defaultImageName
@@ -41,21 +41,20 @@ public struct CharacterSelection: ReducerProtocol {
 
     // MARK: - Composable Architecture
 
-    public var body: some ReducerProtocol<State, Action> {
-        Reduce { state, action in
+    public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
+        Reduce<State, Action> { state, action in
             switch action {
             case let .didSelectCharacter(character):
                 state.tabsState = character == nil ? nil : .init(character: character!)
                 return .none
-            case .tabs(.misc(.changeCharacter)):
-                state.tabsState = nil
-                return .none
             case .tabs:
                 return .none
             }
-        }.ifLet(\.tabsState, action: /Action.tabs) {
+        }
+        .ifLet(\State.tabsState, action: /CharacterSelection.Action.tabs) {
             Tabs()
         }
+        .reduce(into: &state, action: action)
     }
 }
 

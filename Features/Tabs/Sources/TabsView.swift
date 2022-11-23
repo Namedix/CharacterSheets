@@ -1,6 +1,5 @@
 import CommonUI
 import ComposableArchitecture
-import Options
 import SwiftUI
 
 public struct TabsView: View {
@@ -44,17 +43,12 @@ public struct TabsView: View {
                             Text("Equipment")
                         }
                         .tag(3)
-                    OptionsView(
-                        store: self.store.scope(
-                            state: \.miscState,
-                            action: Tabs.Action.misc
-                        )
-                    )
-                    .tabItem {
-                        Image.optionsTabBar
-                        Text("More")
-                    }
-                    .tag(4)
+                    Text("Options")
+                        .tabItem {
+                            Image.optionsTabBar
+                            Text("More")
+                        }
+                        .tag(4)
                 }
                 .toolbar(.visible, for: .tabBar)
                 .toolbarBackground(
