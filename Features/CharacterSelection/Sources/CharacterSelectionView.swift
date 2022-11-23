@@ -15,10 +15,6 @@ public struct CharacterSelectionView: View {
     // MARK: - Properties
 
     var store: StoreOf<CharacterSelection>
-    @State var path = NavigationPath()
-    enum Route: Hashable {
-        case tabs
-    }
 
     // MARK: - Initialization
 
@@ -29,7 +25,7 @@ public struct CharacterSelectionView: View {
     // MARK: - View
 
     public var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack {
             WithViewStore(self.store) { viewStore in
                 GeometryReader { proxy in
                     VStack(spacing: 0) {
@@ -46,21 +42,27 @@ public struct CharacterSelectionView: View {
                     }
                     .ignoresSafeArea()
                     .background(color: .appBlackDark)
-                    .navigationDestination(for: Route.self) { route in
-                        switch route {
-                        case .tabs:
-                            IfLetStore(
-                                self.store.scope(
-                                    state: \.tabsState,
-                                    action: CharacterSelection.Action.tabs
-                                ),
-                                then: { store in
-                                    TabsView(store: store)
-                                        .navigationBarHidden(true)
-                                }
-                            )
+                    .navigationDestination(
+                        isPresented: .init(
+                            get: { viewStore.tabsState != nil },
+                            set: { _ in viewStore.send(.didSelectCharacter(nil)) }
+                        ),
+                        destination: {
+                            ZStack {
+                                Color.appBlackDark
+                                IfLetStore(
+                                    self.store.scope(
+                                        state: \.tabsState,
+                                        action: CharacterSelection.Action.tabs
+                                    ),
+                                    then: { store in
+                                        TabsView(store: store)
+                                            .navigationBarHidden(true)
+                                    }
+                                )
+                            }.ignoresSafeArea()
                         }
-                    }
+                    )
                 }
             }
         }
@@ -111,7 +113,6 @@ public struct CharacterSelectionView: View {
             ForEach(characters) { character in
                 Button(action: {
                     selectAction(character)
-                    path.append(Route.tabs)
                 }) {
                     InfoTileView(
                         image: Image(character.inestigatorData.occupation.imageName, bundle: CommonUIResources.bundle),

@@ -22,8 +22,8 @@ var targets: [Target] {
     targets += Target.makeFrameworkTargets(
         name: "Common",
         dependencies: [
-			.external(name: "ComposableArchitecture")
-		],
+            .package(product: "ComposableArchitecture"),
+        ],
         targets: [.framework]
     )
     targets += Target.makeFrameworkTargets(
@@ -46,6 +46,7 @@ var targets: [Target] {
         dependencies: [
             .target(name: "Common"),
             .target(name: "CommonUI"),
+            .target(name: "Options"),
         ],
         targets: [.preview, .framework]
     )
@@ -57,6 +58,14 @@ var targets: [Target] {
         ],
         targets: [.preview, .framework]
     )
+    targets += Target.makeFrameworkTargets(
+        name: "Options",
+        dependencies: [
+            .target(name: "Common"),
+            .target(name: "CommonUI"),
+        ],
+        targets: [.preview, .framework]
+    )
     return targets
 }
 
@@ -65,7 +74,9 @@ var targets: [Target] {
 let project = Project(
     name: "CharacterSheets",
     organizationName: "com.rook",
-    packages: [],
+    packages: [
+        .remote(url: "https://github.com/pointfreeco/swift-composable-architecture.git", requirement: .upToNextMajor(from: "0.45.0")),
+    ],
     settings: .settings(configurations: configurations),
     targets: targets,
     resourceSynthesizers: [.assets(), .strings(), .fonts()]

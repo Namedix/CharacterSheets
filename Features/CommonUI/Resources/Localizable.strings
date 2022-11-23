@@ -1,0 +1,18 @@
+// MARK: CharacterList
+"characterList_title" = "Characters list";
+"characterList_description" = "Beneath is a list of your characters with which you went on amazing adventures";
+
+// MARK: System
+"system_title" = "Choose RPG system";
+"system_description" = "Beneath is a list of supported systems. We're working to add more of them in future!";
+"system_surveyStart" = "If you don't see your favorite system here ";
+"system_surveyColored" = "VOTE FOR IT!";
+"system_surveyEnd" = " We'll work on new ones depending on your demand.";
+
+// MARK: Options
+"options_rules_title" = "Zasady";
+"options_rules_description" = "Skrót zasad dotyczacych testów atrybutów i leczenia";
+"options_dices_title" = "Kostki";
+"options_dices_description" = "Kostki których możesz potrzebować aczkolwiek zawsze lepiej rzucać swoimi!";
+"options_changeCharacter_title" = "Zmień postać";
+"options_changeCharacter_description" = "Czy aby napewno jesteś pewien że ta postać nie zasłużyła na odrobine zabawy?";
