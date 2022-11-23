@@ -15,7 +15,7 @@ public enum CharacterSex: Equatable {
 
 public struct Age: Equatable {
     public let value: Int
-
+    
     public var modifier: Int {
         switch value {
         case 40 ... 49:
@@ -65,7 +65,7 @@ public struct Healht: Equatable {
     public var currentValue: Int
     public var criticalWound: Bool = false // changes when you're hit with at least half hp in single blow
     public var status: Status = .alive
-
+    
     public enum Status: Equatable {
         case alive
         case dead // fail CON roll while dying || fall below 0 hp
@@ -90,19 +90,6 @@ public struct UsableValue: Equatable {
     public var currentValue: Int
 }
 
-public struct Skill: Equatable {
-    public let name: String
-    public var didUse: Bool = false
-    public var defaultValue: Int
-    public var halfValue: Int {
-        defaultValue / 2
-    }
-
-    public var fifthValue: Int {
-        defaultValue / 5
-    }
-}
-
 public enum ItemType: String, Equatable {
     case manClothes
     case womanClothes
@@ -118,12 +105,12 @@ public enum ItemType: String, Equatable {
 public class Item: Equatable {
     public let name: String
     public let type: ItemType
-
+    
     public init(name: String, type: ItemType) {
         self.name = name
         self.type = type
     }
-
+    
     public static func == (lhs: Item, rhs: Item) -> Bool {
         lhs.name == rhs.name && lhs.type == rhs.type
     }
@@ -137,15 +124,15 @@ public class Weapon: Item {
     public let maxAttacks: Int?
     public let ammo: Int?
     public let malfunction: Int?
-
+    
     public var halfValue: Int {
         value / 2
     }
-
+    
     public var fifthValue: Int {
         value / 5
     }
-
+    
     init(
         name: String,
         type: ItemType,
@@ -171,7 +158,7 @@ public class Weapon: Item {
 public struct Combat: Equatable {
     public let damageBonus: String
     public let build: Int
-
+    
     init(strenght: Int, constitution: Int) {
         let sum = strenght + constitution
         switch sum {
@@ -236,11 +223,11 @@ public struct CthulhuCharacter: Equatable, Identifiable {
             return 8 - inestigatorData.age.modifier
         }
     }
-
+    
     public var combat: Combat {
         Combat(strenght: characteristics.strenght, constitution: characteristics.constitution)
     }
-
+    
     public var history: History
     public var wealth: Wealth
 }

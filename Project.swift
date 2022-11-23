@@ -22,8 +22,8 @@ var targets: [Target] {
     targets += Target.makeFrameworkTargets(
         name: "Common",
         dependencies: [
-            .external(name: "ComposableArchitecture"),
-        ],
+			.external(name: "ComposableArchitecture")
+		],
         targets: [.framework]
     )
     targets += Target.makeFrameworkTargets(
@@ -45,6 +45,14 @@ var targets: [Target] {
         dependencies: [
             .target(name: "Common"),
             .target(name: "CommonUI"),
+        ],
+        targets: [.preview, .framework]
+    )
+    targets += Target.makeFrameworkTargets(
+        name: "Skills",
+        dependencies: [
+            .target(name: "Common"),
+            .target(name: "CommonUI")
         ],
         targets: [.preview, .framework]
     )
