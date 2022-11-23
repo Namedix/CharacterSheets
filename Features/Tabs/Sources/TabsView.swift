@@ -3,6 +3,7 @@ import ComposableArchitecture
 import Equipment
 import Options
 import SwiftUI
+import MainAttributes
 
 public struct TabsView: View {
     // MARK: - Properties
@@ -21,12 +22,17 @@ public struct TabsView: View {
         WithViewStore(self.store) { _ in
             TabView {
                 Group {
-                    Text("Main Attributes")
-                        .tabItem {
-                            Image.baseTabBar
-                            Text("Basic")
-                        }
-                        .tag(0)
+                    MainAttributesView(
+                        store: self.store.scope(
+                            state: \.mainAttributesState,
+                            action: Tabs.Action.mainAttributes
+                        )
+                    )
+                    .tabItem {
+                        Image.baseTabBar
+                        Text("Basic")
+                    }
+                    .tag(0)
                     Text("Fight")
                         .tabItem {
                             Image.fightTabBar

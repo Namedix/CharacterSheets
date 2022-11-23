@@ -47,6 +47,21 @@ public struct BasicInfo: Equatable {
     public var adress: String
     public let birthPlace: String
     public var appearanceImageName: String?
+    public var time: Era
+
+    public enum Era {
+        case interwarPeriod
+        case modern
+
+        public var displayName: String {
+            switch self {
+            case .interwarPeriod:
+                return "1920"
+            case .modern:
+                return "2000"
+            }
+        }
+    }
 }
 
 public struct Characteristics: Equatable {
@@ -397,7 +412,8 @@ public extension CthulhuCharacter {
                 sex: .male,
                 adress: "Nowy York",
                 birthPlace: "Boston",
-                appearanceImageName: "characterReporter"
+                appearanceImageName: "characterReporter",
+                time: .interwarPeriod
             ),
             health: .init(maxValue: 15, currentValue: 15),
             sanity: .init(startingValue: 45, currentValue: 45, maxValue: 99),

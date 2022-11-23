@@ -72,7 +72,7 @@ public extension TextStyle {
     )
 
     /**
-     * `Bold, 16.0, appWhite - SFProDisplay`
+     * `Bold, 14.0, appWhite - SFProDisplay`
      */
     static let whiteSmallBold: TextStyle = .init(
         font: .system(size: 14, weight: .bold),

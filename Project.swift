@@ -48,6 +48,7 @@ var targets: [Target] {
             .target(name: "CommonUI"),
             .target(name: "Options"),
             .target(name: "Equipment"),
+            .target(name: "MainAttributes")
         ],
         targets: [.preview, .framework]
     )
@@ -65,6 +66,14 @@ var targets: [Target] {
             .target(name: "Common"),
             .target(name: "CommonUI"),
             .external(name: "SwiftUIMasonry"),
+        ],
+        targets: [.preview, .framework]
+    )
+    targets += Target.makeFrameworkTargets(
+        name: "MainAttributes",
+        dependencies: [
+            .target(name: "Common"),
+            .target(name: "CommonUI")
         ],
         targets: [.preview, .framework]
     )

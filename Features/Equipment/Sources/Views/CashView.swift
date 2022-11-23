@@ -20,19 +20,11 @@ struct CashView: View {
     var body: some View {
         VStack(spacing: 0) {
             if isFlipped {
-                ZStack {
-                    Circle()
-                        .foregroundColor(.appDark)
-                    image
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                }
-                .padding(.top, Margin.small)
-                .padding(.horizontal, Margin.medium)
-                Text("\(value) \(currency)")
-                    .textStyle(.greyRegular)
-                    .padding(.top, Margin.small)
-                Spacer()
+                CircleCardView(
+                    image: image,
+                    description: "\(value) \(currency)",
+                    hasBackground: false
+                )
             } else {
                 AmountTileView(value: value, addAction: addAction, reduceAction: reduceAction)
                     .flipAnimation(isFlipped: true)
