@@ -16,3 +16,44 @@
 "options_dices_description" = "Kostki których możesz potrzebować aczkolwiek zawsze lepiej rzucać swoimi!";
 "options_changeCharacter_title" = "Zmień postać";
 "options_changeCharacter_description" = "Czy aby napewno jesteś pewien że ta postać nie zasłużyła na odrobine zabawy?";
+
+// MARK: Common
+"common_sex_male" = "Kobieta";
+"common_sex_female" = "Mężczyzna";
+"common_sex" = "Płeć";
+"common_age" = "Wiek";
+"common_age_description" = "%d lat";
+
+// MARK: MainAttributes
+"main_attributes_name" = "Nazwa:";
+"main_attributes_profession" = "Profesja";
+"main_attributes_times" = "Lata:";
+"main_attributes_history_tooltip" = "Aby edytować dowolny kafelek należy na niego dotknąć.";
+"main_attributes_strenght" = "Siła";
+"main_attributes_constitution" = "Wytrzymałość";
+"main_attributes_dexternity" = "Zręczność";
+"main_attributes_inteligence" = "Inteligencja";
+"main_attributes_size" = "Budowa ciała";
+"main_attributes_power" = "Moc";
+"main_attributes_apperance" = "Wygląd";
+"main_attributes_education" = "Edukacja";
+"main_attributes_standard_information_header" = "Informacje podstawowe";
+"main_attributes_apperance_header" = "Wygląd";
+"main_attributes_statistic_header" = "Statystyki";
+"main_attributes_history_header" = "Historia";
+"main_attributes_traits" = "Przymioty";
+"main_attributes_ideology" = "Ideologia i przekonania";
+"main_attributes_injures" = "Urazy/Blizny";
+"main_attributes_significant" = "Ważne osoby";
+"main_attributes_phobias" = "Fobie/Manie";
+"main_attributes_meaningfull" = "Znaczące miejsca";
+"main_attributes_arcane_tomes" = "Tajemne Księgi, zaklęcia i artefakty";
+"main_attributes_treasured_possessions" = "Rzeczy osobiste";
+"main_attributes_encounters" = "Spotkania z dziwnymi istotami";
+
+// MARK: Tabs
+"tabs_basic" = "Postać";
+"tabs_fight" = "Walka";
+"tabs_skills" = "Umiejętności";
+"tabs_equipment" = "Ekwipunek";
+"tabs_more" = "Więcej";

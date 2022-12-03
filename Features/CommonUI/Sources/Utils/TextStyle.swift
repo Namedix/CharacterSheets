@@ -5,8 +5,8 @@ public struct TextStyle {
     public let color: Color
 }
 
-public extension View {
-    func textStyle(_ style: TextStyle) -> some View {
+public extension Text {
+    func textStyle(_ style: TextStyle) -> Text {
         font(style.font).foregroundColor(style.color)
     }
 }

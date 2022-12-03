@@ -3,6 +3,7 @@ import ComposableArchitecture
 import Equipment
 import Options
 import SwiftUI
+import MainAttributes
 
 public struct TabsView: View {
     // MARK: - Properties
@@ -21,22 +22,27 @@ public struct TabsView: View {
         WithViewStore(self.store) { _ in
             TabView {
                 Group {
-                    Text("Main Attributes")
-                        .tabItem {
-                            Image.baseTabBar
-                            Text("Basic")
-                        }
-                        .tag(0)
+                    MainAttributesView(
+                        store: self.store.scope(
+                            state: \.mainAttributesState,
+                            action: Tabs.Action.mainAttributes
+                        )
+                    )
+                    .tabItem {
+                        Image.baseTabBar
+                        Text(L10n.tabsBasic)
+                    }
+                    .tag(0)
                     Text("Fight")
                         .tabItem {
                             Image.fightTabBar
-                            Text("Fighting")
+                            Text(L10n.tabsFight)
                         }
                         .tag(1)
                     Text("Skills")
                         .tabItem {
                             Image.skillsTabBar
-                            Text("Skills")
+                            Text(L10n.tabsSkills)
                         }
                         .tag(2)
                     EquipmentView(
@@ -47,7 +53,7 @@ public struct TabsView: View {
                     )
                     .tabItem {
                         Image.equipmentTabBar
-                        Text("Equipment")
+                        Text(L10n.tabsEquipment)
                     }
                     .tag(3)
                     OptionsView(
@@ -58,7 +64,7 @@ public struct TabsView: View {
                     )
                     .tabItem {
                         Image.optionsTabBar
-                        Text("More")
+                        Text(L10n.tabsMore)
                     }
                     .tag(4)
                 }
