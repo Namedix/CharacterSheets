@@ -36,11 +36,11 @@ public struct CircleCardView: View {
                 if let image = image {
                     image
                         .resizable()
-                        .frame(width: 50, height: 50)
+                        .frame(width: Sizes.huge, height: Sizes.huge)
                 } else if let title = title {
                     Text(title)
                         .textStyle(.whiteBigBold)
-                        .frame(width: 50, height: 50)
+                        .frame(width: Sizes.huge, height: Sizes.huge)
                 }
             }
             .padding(.top, Margin.small)

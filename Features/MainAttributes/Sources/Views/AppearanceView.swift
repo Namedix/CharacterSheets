@@ -38,13 +38,13 @@ struct AppearanceView: View {
                     ) {
                         CharacteristicTileView(
                             image: .newspaper,
-                            title: "Wiek",
-                            description: "\(age) lat"
+                            title: L10n.commonAge,
+                            description: L10n.commonAgeDescription(age)
                         )
                         CharacteristicTileView(
                             image: .newspaper,
-                            title: "Płeć",
-                            description: sex == .male ? "Male" : "Female"
+                            title: L10n.commonSex,
+                            description: sex == .male ? L10n.commonSexMale : L10n.commonSexFemale
                         )
                     }
                     Text(description)

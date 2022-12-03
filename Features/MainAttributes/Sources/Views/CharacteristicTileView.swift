@@ -18,7 +18,7 @@ public struct CharacteristicTileView: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 15, height: 15)
+                    .frame(width: Sizes.small, height: Sizes.small)
                 Text(title)
                     .textStyle(.greyMicroRegular)
                     .lineLimit(1)

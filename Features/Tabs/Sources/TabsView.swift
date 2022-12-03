@@ -30,19 +30,19 @@ public struct TabsView: View {
                     )
                     .tabItem {
                         Image.baseTabBar
-                        Text("Basic")
+                        Text(L10n.tabsBasic)
                     }
                     .tag(0)
                     Text("Fight")
                         .tabItem {
                             Image.fightTabBar
-                            Text("Fighting")
+                            Text(L10n.tabsFight)
                         }
                         .tag(1)
                     Text("Skills")
                         .tabItem {
                             Image.skillsTabBar
-                            Text("Skills")
+                            Text(L10n.tabsSkills)
                         }
                         .tag(2)
                     EquipmentView(
@@ -53,7 +53,7 @@ public struct TabsView: View {
                     )
                     .tabItem {
                         Image.equipmentTabBar
-                        Text("Equipment")
+                        Text(L10n.tabsEquipment)
                     }
                     .tag(3)
                     OptionsView(
@@ -64,7 +64,7 @@ public struct TabsView: View {
                     )
                     .tabItem {
                         Image.optionsTabBar
-                        Text("More")
+                        Text(L10n.tabsMore)
                     }
                     .tag(4)
                 }
