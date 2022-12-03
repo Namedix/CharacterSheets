@@ -7,32 +7,32 @@ public extension View {
             axis: (x: CGFloat(0), y: CGFloat(10), z: CGFloat(0))
         )
     }
-    
+
     func flipAnimation(isFlipped: Bool) -> some View {
         rotation3DEffect(
             isFlipped ? Angle(degrees: 180) : Angle(degrees: 0),
             axis: (x: CGFloat(0), y: CGFloat(10), z: CGFloat(0))
         )
     }
-    
+
     func fullWidth(alignment: Alignment = .center) -> some View {
         frame(minWidth: 0, maxWidth: .infinity, alignment: alignment)
     }
-    
+
     func background(color: Color) -> some View {
         background(color.edgesIgnoringSafeArea(.all))
     }
-    
+
     func defaultCard() -> some View {
         background(Color.appDark)
             .cornerRadius(CornerRadius.standard)
     }
-    
+
     func defaultLightCard() -> some View {
         background(Color.appLightDark)
             .cornerRadius(CornerRadius.standard)
     }
-    
+
     func readSize(onChange: @escaping (CGSize) -> Void) -> some View {
         background(
             GeometryReader { geometryProxy in
@@ -42,9 +42,9 @@ public extension View {
         )
         .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
     }
-    
+
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape(RoundedCorner(radius: radius, corners: corners) )
+        clipShape(RoundedCorner(radius: radius, corners: corners))
     }
 }
 

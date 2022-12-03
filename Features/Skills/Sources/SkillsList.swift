@@ -1,6 +1,6 @@
-import SwiftUI
 import Common
 import CommonUI
+import SwiftUI
 
 public struct SkillsList: View {
     let skills: [Skill]
@@ -9,14 +9,14 @@ public struct SkillsList: View {
     let lowerCallback: (Skill) -> Void
     let raiseCallback: (Skill) -> Void
     let confirmCallback: (Skill) -> Void
-    
+
     public var body: some View {
         VStack {
-            LazyVStack (pinnedViews: [.sectionHeaders]) {
+            LazyVStack(pinnedViews: [.sectionHeaders]) {
                 Section {
                     ForEach(skills) { skill in
                         VStack(spacing: 0) {
-                            HStack (spacing: 0) {
+                            HStack(spacing: 0) {
                                 Circle()
                                     .stroke(style: StrokeStyle(lineWidth: 1, dash: [4, 1]))
                                     .frame(width: 15, height: 15)
@@ -61,7 +61,7 @@ public struct SkillsList: View {
                                     _ = longCallback(skill)
                                 }
                             }
-                            if (skill.isUpgrading) {
+                            if skill.isUpgrading {
                                 HStack {
                                     Image.upgradeSkill
                                         .resizable()
@@ -69,7 +69,7 @@ public struct SkillsList: View {
                                         .frame(width: 30, alignment: .center)
                                     Spacer()
                                     ZStack {
-                                        HStack (spacing: 0) {
+                                        HStack(spacing: 0) {
                                             Button {
                                                 withAnimation {
                                                     _ = lowerCallback(skill)

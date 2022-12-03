@@ -1,6 +1,6 @@
-import SwiftUI
-import Skills
 import Common
+import Skills
+import SwiftUI
 
 @main
 struct SkillsApp: App {
@@ -8,7 +8,7 @@ struct SkillsApp: App {
         WindowGroup {
             SkillsView(
                 store: .init(initialState: Skills.State(skills: Skill.cotcSkillListData.filter { $0.isLearned }), reducer: Skills())
-			)
+            )
         }
     }
 }

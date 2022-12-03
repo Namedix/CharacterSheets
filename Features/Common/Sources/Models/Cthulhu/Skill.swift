@@ -15,12 +15,12 @@ public struct Skill: Equatable, Identifiable {
     public var halfValue: Int {
         defaultValue / 2
     }
-    
+
     public var fifthValue: Int {
         defaultValue / 5
     }
-    
-    public init (
+
+    public init(
         id: Int,
         localizedKey: String,
         ofChoice: String = "",
@@ -67,7 +67,7 @@ public extension Skill {
             .init(id: 14, localizedKey: "Skill_read_lips", isRare: true, defaultValue: 1),
             .init(id: 15, localizedKey: "Skill_electronics", isModernTimes: true, defaultValue: 1),
             .init(id: 16, localizedKey: "Skill_electrical_repair", defaultValue: 10),
-            .init(id: 17, localizedKey: "Skill_forgery",isSpecialization: true, defaultValue: 5),
+            .init(id: 17, localizedKey: "Skill_forgery", isSpecialization: true, defaultValue: 5),
             .init(id: 18, localizedKey: "Skill_pharmacy", isSpecialization: true, defaultValue: 1),
             .init(id: 19, localizedKey: "Skill_physics", isSpecialization: true, defaultValue: 1),
             .init(id: 20, localizedKey: "Skill_photography", isSpecialization: true, defaultValue: 5),
@@ -128,7 +128,7 @@ public extension Skill {
             .init(id: 75, localizedKey: "Skill_appraise", defaultValue: 5),
             .init(id: 76, localizedKey: "Skill_intimidate", defaultValue: 15),
             .init(id: 77, localizedKey: "Skill_zoology", isSpecialization: true, defaultValue: 1),
-            .init(id: 78, localizedKey: "Skill_sleight_of_hand", defaultValue: 10)
+            .init(id: 78, localizedKey: "Skill_sleight_of_hand", defaultValue: 10),
         ]
     }
 }

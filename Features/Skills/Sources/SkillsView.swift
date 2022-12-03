@@ -1,22 +1,21 @@
-import SwiftUI
 import Common
 import CommonUI
 import ComposableArchitecture
+import SwiftUI
 
 public struct SkillsView: View {
-    
     // MARK: - Properties
-    
+
     var store: StoreOf<Skills>
-    
+
     // MARK: - Initialization
-    
+
     public init(store: StoreOf<Skills>) {
         self.store = store
     }
-    
+
     // MARK: - View
-    
+
     public var body: some View {
         WithViewStore(self.store) { viewStore in
             ScrollView(showsIndicators: false) {
@@ -29,11 +28,12 @@ public struct SkillsView: View {
                         }
                     },
                     // TODO: Add modal to learn skills
-                    secondaryImage: .learn) {
-                        withAnimation {
-                            _ = viewStore.send(.didLearnNewSkill)
-                        }
+                    secondaryImage: .learn
+                ) {
+                    withAnimation {
+                        _ = viewStore.send(.didLearnNewSkill)
                     }
+                }
                 HStack {
                     Image.search
                     TextField(

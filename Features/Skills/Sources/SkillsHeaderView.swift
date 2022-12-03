@@ -1,11 +1,11 @@
-import SwiftUI
 import CommonUI
+import SwiftUI
 
 public struct SkillsHeaderView: View {
     public init() {}
-    
+
     public var body: some View {
-        HStack (spacing: 0) {
+        HStack(spacing: 0) {
             Text(L10n.skillsUsed)
                 .textStyle(.greyMicroMedium)
                 .frame(width: 30, alignment: .center)

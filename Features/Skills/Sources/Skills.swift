@@ -1,32 +1,34 @@
-import ComposableArchitecture
-import CommonUI
 import Common
+import CommonUI
+import ComposableArchitecture
 
 public struct Skills: ReducerProtocol {
-    
     // MARK: - Properties
-    
+
     public struct State: Equatable {
         // MARK: - Properties
+
         var skills: [Skill]
         var filteredSkillsIds: [Int] = []
         var isFilteringSkills: Bool = false
         var searchQuery: String = ""
         var isLearningModalPresented: Bool = false
-        
+
         var filteredSkills: [Skill] {
             if filteredSkillsIds.isEmpty {
                 return skills
             }
             return skills.filter { filteredSkillsIds.contains($0.id) }
         }
-        
+
         // MARK: - Init
+
         public init(skills: [Skill]) {
             self.skills = skills
             //            self.filteredSkills = skills
         }
     }
+
     public enum Action: Equatable {
         case didUseAbility(Skill)
         case didStartUpgrade(Skill)
@@ -38,37 +40,37 @@ public struct Skills: ReducerProtocol {
         case didClearSearch
         case didLearnNewSkill
     }
-    
+
     // MARK: - Initialization
-    
+
     public init() {}
-    
+
     // MARK: - Composable Architecture
-    
+
     public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
-        case .didUseAbility(let skill):
+        case let .didUseAbility(skill):
             if let firstIndex = state.skills.firstIndex(of: skill), !skill.isUpgrading {
                 state.skills[firstIndex].didUse.toggle()
             }
             return .none
-        case .didStartUpgrade(let skill):
-            if let firstIndex = state.skills.firstIndex(of: skill), skill.didUse  {
+        case let .didStartUpgrade(skill):
+            if let firstIndex = state.skills.firstIndex(of: skill), skill.didUse {
                 state.skills[firstIndex].isUpgrading = true
             }
             return .none
-        case .didLowerSkill(let skill):
+        case let .didLowerSkill(skill):
             if let firstIndex = state.skills.firstIndex(of: skill) {
                 state.skills[firstIndex].defaultValue -= 1
             }
             return .none
-        case .didRaiseSkill(let skill):
+        case let .didRaiseSkill(skill):
             if let firstIndex = state.skills.firstIndex(of: skill) {
                 state.skills[firstIndex].defaultValue += 1
             }
             return .none
-        case .didFinishUpgrade(let skill):
-            if let firstIndex = state.skills.firstIndex(of: skill), skill.didUse  {
+        case let .didFinishUpgrade(skill):
+            if let firstIndex = state.skills.firstIndex(of: skill), skill.didUse {
                 state.skills[firstIndex].didUse = false
                 state.skills[firstIndex].isUpgrading = false
             }
@@ -81,7 +83,7 @@ public struct Skills: ReducerProtocol {
                 state.filteredSkillsIds = []
             }
             return .none
-        case .didFillSearchInput(let input):
+        case let .didFillSearchInput(input):
             state.searchQuery = input
             if input.count < 3 {
                 state.filteredSkillsIds = []

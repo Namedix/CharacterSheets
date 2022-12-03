@@ -6,17 +6,17 @@ import SwiftUI
 
 public struct TabsView: View {
     // MARK: - Properties
-    
+
     var store: StoreOf<Tabs>
-    
+
     // MARK: - Initialization
-    
+
     public init(store: StoreOf<Tabs>) {
         self.store = store
     }
-    
+
     // MARK: - View
-    
+
     public var body: some View {
         WithViewStore(self.store) { _ in
             TabView {
