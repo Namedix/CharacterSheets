@@ -17,10 +17,10 @@ struct HistoryTile: View {
     var body: some View {
         HStack {
             Group {
-                Text(title + ": ")
+                Text(title + Constants.afterTitle)
                     .textStyle(.whiteSmallBold)
                 +
-                Text(description.isEmpty ? "-" : description)
+                Text(description.isEmpty ? Constants.emptyDescription : description)
                     .textStyle(.greySmallRegular)
             }
             .multilineTextAlignment(.leading)
@@ -28,5 +28,12 @@ struct HistoryTile: View {
         }
         .padding(Margin.small)
         .defaultLightCard()
+    }
+}
+
+extension HistoryTile {
+    enum Constants {
+        static let afterTitle: String = ": "
+        static let emptyDescription: String = "-"
     }
 }
