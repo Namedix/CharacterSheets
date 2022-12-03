@@ -1,5 +1,6 @@
 import CommonUI
 import ComposableArchitecture
+import Equipment
 import Options
 import SwiftUI
 
@@ -38,12 +39,17 @@ public struct TabsView: View {
                             Text("Skills")
                         }
                         .tag(2)
-                    Text("Equipment")
-                        .tabItem {
-                            Image.equipmentTabBar
-                            Text("Equipment")
-                        }
-                        .tag(3)
+                    EquipmentView(
+                        store: self.store.scope(
+                            state: \.equipmentState,
+                            action: Tabs.Action.equipment
+                        )
+                    )
+                    .tabItem {
+                        Image.equipmentTabBar
+                        Text("Equipment")
+                    }
+                    .tag(3)
                     OptionsView(
                         store: self.store.scope(
                             state: \.miscState,
