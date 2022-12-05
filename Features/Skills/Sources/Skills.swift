@@ -15,7 +15,7 @@ public struct Skills: ReducerProtocol {
         var isLearningModalPresented: Bool = false
 
         var filteredSkills: [Skill] {
-            if filteredSkillsIds.isEmpty {
+            if filteredSkillsIds.isEmpty && searchQuery.count < Constants.queryThreshold {
                 return skills
             }
             return skills.filter { filteredSkillsIds.contains($0.id) }
@@ -25,7 +25,6 @@ public struct Skills: ReducerProtocol {
 
         public init(skills: [Skill]) {
             self.skills = skills
-            //            self.filteredSkills = skills
         }
     }
 
@@ -85,13 +84,12 @@ public struct Skills: ReducerProtocol {
             return .none
         case let .didFillSearchInput(input):
             state.searchQuery = input
-            if input.count < 3 {
+            if input.count < Constants.queryThreshold {
                 state.filteredSkillsIds = []
             } else {
-                state.filteredSkillsIds = state.skills.filter { L10n.localizedString($0.localizedKey).lowercased().contains(input.lowercased()) }.map(\.id)
-                if state.filteredSkillsIds.isEmpty {
-                    state.filteredSkillsIds = [-1]
-                }
+                state.filteredSkillsIds = state.skills.filter {
+                    L10n.localizedString($0.localizedKey).lowercased().contains(input.lowercased())
+                }.map(\.id)
             }
             return .none
         case .didClearSearch:
@@ -102,5 +100,11 @@ public struct Skills: ReducerProtocol {
             state.isLearningModalPresented.toggle()
             return .none
         }
+    }
+}
+
+extension Skills {
+    enum Constants {
+        static let queryThreshold: Int = 3
     }
 }

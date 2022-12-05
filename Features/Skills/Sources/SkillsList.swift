@@ -18,13 +18,13 @@ public struct SkillsList: View {
                         VStack(spacing: 0) {
                             HStack(spacing: 0) {
                                 Circle()
-                                    .stroke(style: StrokeStyle(lineWidth: 1, dash: [4, 1]))
-                                    .frame(width: 15, height: 15)
-                                    .foregroundColor(skill.didUse ? Color.appLightPurple : Color.appGrey)
+                                    .stroke(style: .regularStroke)
+                                    .frame(width: Sizes.small, height: Sizes.small)
+                                    .foregroundColor(skill.didUse ? .appLightPurple : .appGrey)
                                     .background(
                                         AppCircleView(didUse: skill.didUse)
                                     )
-                                    .frame(width: 30, alignment: .center)
+                                    .frame(width: Constants.small, alignment: .center)
                                 Spacer()
                                 Text(L10n.localizedString(skill.localizedKey))
                                     .multilineTextAlignment(.center)
@@ -34,20 +34,20 @@ public struct SkillsList: View {
                                 Spacer()
                                 Text("\(skill.defaultValue)")
                                     .textStyle(.whiteSmallRegular)
-                                    .frame(width: 42, alignment: .center)
+                                    .frame(width: Constants.big, alignment: .center)
                                     .padding(.vertical, Margin.small)
                                     .background(Color.appLightDark)
                                     .cornerRadius(CornerRadius.standard, corners: [.topLeft, .bottomLeft])
-                                Spacer().frame(width: 1)
+                                Spacer().frame(width: Sizes.divider)
                                 Text("\(skill.halfValue)")
                                     .textStyle(.whiteSmallRegular)
-                                    .frame(width: 42, alignment: .center)
+                                    .frame(width: Constants.big, alignment: .center)
                                     .padding(.vertical, Margin.small)
                                     .background(Color.appLightDark)
-                                Spacer().frame(width: 1)
+                                Spacer().frame(width: Sizes.divider)
                                 Text("\(skill.fifthValue)")
                                     .textStyle(.whiteSmallRegular)
-                                    .frame(width: 42, alignment: .center)
+                                    .frame(width: Constants.big, alignment: .center)
                                     .padding(.vertical, Margin.small)
                                     .background(Color.appLightDark)
                                     .cornerRadius(CornerRadius.standard, corners: [.topRight, .bottomRight])
@@ -66,39 +66,16 @@ public struct SkillsList: View {
                                     Image.upgradeSkill
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(width: 30, alignment: .center)
+                                        .frame(width: Constants.small, alignment: .center)
                                     Spacer()
-                                    ZStack {
-                                        HStack(spacing: 0) {
-                                            Button {
-                                                withAnimation {
-                                                    _ = lowerCallback(skill)
-                                                }
-                                            } label: {
-                                                Text("-")
-                                                    .textStyle(.whiteTinyBold)
-                                                    .padding(.vertical, 12)
-                                                    .padding(.horizontal, 32)
-                                                    .background(Color.appLightDark)
-                                                    .cornerRadius(CornerRadius.standard, corners: [.topLeft, .bottomLeft])
-                                            }
-                                            .buttonStyle(PlainButtonStyle())
-                                            Button {
-                                                withAnimation {
-                                                    _ = raiseCallback(skill)
-                                                }
-                                            } label: {
-                                                Text("+")
-                                                    .textStyle(.whiteTinyBold)
-                                                    .padding(.vertical, 12)
-                                                    .padding(.horizontal, 32)
-                                                    .background(Color.appLightDark)
-                                                    .cornerRadius(CornerRadius.standard, corners: [.topRight, .bottomRight])
-                                            }
-                                            .buttonStyle(PlainButtonStyle())
+                                    MinusPlusRowView(
+                                        voidMinusCallback: {
+                                            _ = lowerCallback(skill)
+                                        },
+                                        voidPlusCallback: {
+                                            _ = raiseCallback(skill)
                                         }
-                                        Color.appGrey.frame(width: 1, height: 30)
-                                    }
+                                    )
                                     Spacer()
                                     Button {
                                         withAnimation(.spring()) {
@@ -107,10 +84,10 @@ public struct SkillsList: View {
                                     } label: {
                                         Text(L10n.skillsConfirm)
                                             .textStyle(.whiteTinyBold)
-                                            .padding(.vertical, 12)
+                                            .padding(.vertical, Margin.medium)
                                     }
                                     .buttonStyle(PlainButtonStyle())
-                                    .frame(width: 128, alignment: .center)
+                                    .frame(width: Constants.huge, alignment: .center)
                                     .defaultLightCard()
                                 }
                                 .padding(.top, Margin.small)
@@ -122,5 +99,13 @@ public struct SkillsList: View {
                 }
             }
         }
+    }
+}
+
+extension SkillsList {
+    enum Constants {
+        static let small: CGFloat = 30
+        static let big: CGFloat = 42
+        static let huge: CGFloat = 128
     }
 }

@@ -1,4 +1,5 @@
 import SwiftUI
+import CommonUI
 
 public struct AppCircleView: View {
     var didUse: Bool
@@ -11,11 +12,11 @@ public struct AppCircleView: View {
 
     public var body: some View {
         Circle()
-            .stroke(style: StrokeStyle(lineWidth: 1, dash: [4, 1]))
-            .frame(width: 15, height: 15)
-            .foregroundColor(didUse ? Color.appLightPurple : Color.appGrey)
+            .stroke(style: .regularStroke)
+            .frame(width: Sizes.small, height: Sizes.small)
+            .foregroundColor(didUse ? .appLightPurple : .appGrey)
             .background(
-                Circle().foregroundColor(didUse ? Color.appLightPurple : Color.appDark)
+                Circle().foregroundColor(didUse ? .appLightPurple : .appDark)
             )
     }
 }
