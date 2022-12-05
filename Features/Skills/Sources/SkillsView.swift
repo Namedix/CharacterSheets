@@ -47,7 +47,7 @@ public struct SkillsView: View {
                             }
                         )
                     )
-                    if viewStore.searchQuery != "" {
+                    if viewStore.searchQuery.isEmpty {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundColor(Color.appBlackDark)
                             .onTapGesture {

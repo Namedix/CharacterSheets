@@ -69,10 +69,10 @@ public struct SkillsList: View {
                                         .frame(width: Constants.small, alignment: .center)
                                     Spacer()
                                     MinusPlusRowView(
-                                        voidMinusCallback: {
+                                        minusAction: {
                                             _ = lowerCallback(skill)
                                         },
-                                        voidPlusCallback: {
+                                        plusAction: {
                                             _ = raiseCallback(skill)
                                         }
                                     )
