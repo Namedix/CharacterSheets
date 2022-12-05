@@ -120,7 +120,7 @@ public struct CharacterSelectionView: View {
                         description: character.inestigatorData.occupation.value
                     )
                     .defaultCard()
-                }.padding(.top, Margin.regular)
+                }.padding(.top, Margin.small)
             }
         }
     }

@@ -1,0 +1,112 @@
+// MARK: CharacterList
+"CharacterList_title" = "Lista postaci";
+"CharacterList_description" = "Poniżej znajduje się lista twoich postaci, które wyruszyły na niesamowite przygody";
+
+// MARK: System
+"System_title" = "Wybierz system RPG";
+"System_description" = "Poniżej znajduje się lista wspierany systemów. Pracujemy nad tym, by w przyszłości było ich więcej!";
+"System_surveyStart" = "Jeśli nie widzisz swojego ulubionego systemu";
+"System_surveyColored" = "ZAGŁOSUJ NA NIEGO!";
+"System_surveyEnd" = " Będziemy pracować nad nowymi systemami, w oparciu o zapotrzebowanie";
+
+// MARK: Skills
+"Skills_title" = "Umiejętności";
+"Skills_search" = "Jakiej umiejętności szukasz?";
+"Skills_used" = "Użyty";
+"Skills_skill" = "Skill";
+"Skills_value" = "Value";
+"Skills_half" = "1/2";
+"Skills_fifth" = "1/5";
+"Skills_confirm" = "Zatwierdź";
+"Skills_tooltip" = "Aby zaznaczyć użycie umiejętności należy ją dotknąć. Aby ulepszyć umiejetność, przytrzymaj dłużej jej rząd. Umiejętności można pofiltrować naciskając ikonę ulepszenia.";
+
+
+// MARK: Skills list
+"Skill_acting" = "Aktorstwo";
+"Skill_anthropology" = "Antropologia";
+"Skill_archeology" = "Archeologia";
+"Skill_astronomy" = "Astronomia";
+"Skill_whip" = "Bicz";
+"Skill_brawl" = "Bijatyka";
+"Skill_biology" = "Biologia";
+"Skill_botany" = "Botanika";
+"Skill_artillery" = "Broń Artyleryjska";
+"Skill_heavy_weapons" = "Broń Ciężka";
+"Skill_handgun" = "Broń Krótka";
+"Skill_flail" = "Broń Obuchowa";
+"Skill_disguise" = "Charakteryzacja";
+"Skill_chemistry" = "Chemia";
+"Skill_read_lips" = "Czytanie z Ruchu Warg";
+"Skill_electronics" = "Elektronika";
+"Skill_electrical_repair" = "Elektryka";
+"Skill_forgery" = "Fałszerwstwo";
+"Skill_pharmacy" = "Farmacja";
+"Skill_physics" = "Fizyka";
+"Skill_photography" = "Fotografia";
+"Skill_fast_talk"= "Gadanina";
+"Skill_garotte" = "Garota";
+"Skill_geology" = "Geologia";
+"Skill_hypnosis" = "Hipnoza";
+"Skill_history" = "Historia";
+"Skill_engineering" = "Inżynieria";
+"Skill_ride" = "Jeździectwo";
+"Skill_lang_own" = "Język Ojczysty";
+"Skill_lang_foreign" = "Język (Obcy)";
+"Skill_rifle_shotgun" = "Karabin/Strzelba";
+"Skill_machine_gun" = "Karabin Maszynowy";
+"Skill_library_use" = "Korzystanie z Bibliotek";
+"Skill_computer_use" = "Korzystanie z Komputerów";
+"Skill_forensics" = "Kryminalistyka";
+"Skill_cryptography" = "Kryptografia";
+"Skill_accounting" = "Księgowość";
+"Skill_bow" = "Łuk";
+"Skill_mathematics" = "Matematyka";
+"Skill_demolitions" = "Materiały Wybuchowe";
+"Skill_mechanical_repair" = "Mechanika";
+"Skill_medicine" = "Medycyna";
+"Skill_meteorology" = "Meteorologia";
+"Skill_sword" = "Miecz";
+"Skill_flamethrower" = "Miotacz Ognia";
+"Skill_cthulhu_mythos" = "Mity Cthulhu";
+"Skill_listen" = "Nasłuchiwanie";
+"Skill_navigate" = "Nawigacja";
+"Skill_diving" = "Nurkowanie";
+"Skill_operating_heavy_machinery" = "Obsługa Ciężkiego Sprzętu";
+"Skill_occult" = "Okultyzm";
+"Skill_persuade" = "Perswazja";
+"Skill_first_aid" = "Pierwsza Pomoc";
+"Skill_chainsaw" = "Piła Łańcuchowa";
+"Skill_submachine_gun" = "Pistolet Maszynowy";
+"Skill_swim" = "Pływanie";
+"Skill_law" = "Prawo";
+"Skill_drive_auto" = "Prowadzenie Samochodu";
+"Skill_psychoanalysis" = "Psychoanaliza";
+"Skill_psychology" = "Psychologia";
+"Skill_throw" = "Rzucanie";
+"Skill_jump" = "Skakanie";
+"Skill_spot_hidden" = "Spostrzegawczość";
+"Skill_survival" = "Sztuka Przetrwania";
+"Skill_fine_art" = "Sztuki Piękne";
+"Skill_locksmith" = "Ślusarstwo";
+"Skill_axe" = "Topór/Siekiera";
+"Skill_animal_handling" = "Tresura Zwierząt";
+"Skill_track" = "Tropienie";
+"Skill_stealth" = "Ukrywanie";
+"Skill_dodge" = "Unik";
+"Skill_charm" = "Urok Osobisty";
+"Skill_natural_world" = "Wiedza o Naturze";
+    = "Wiedza Tajemna";
+"Skill_spear" = "Włócznia";
+"Skill_climb" = "Wspinaczka";
+"Skill_appraise" = "Wycena";
+"Skill_intimidate" = "Zastraszanie";
+"Skill_zoology" = "Zoologia";
+"Skill_sleight_of_hand" = "Zręczne Palce";
+
+// MARK: Options
+"options_rules_title" = "Zasady";
+"options_rules_description" = "Skrót zasad dotyczacych testów atrybutów i leczenia";
+"options_dices_title" = "Kostki";
+"options_dices_description" = "Kostki których możesz potrzebować aczkolwiek zawsze lepiej rzucać swoimi!";
+"options_changeCharacter_title" = "Zmień postać";
+"options_changeCharacter_description" = "Czy aby napewno jesteś pewien że ta postać nie zasłużyła na odrobine zabawy?";

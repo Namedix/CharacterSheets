@@ -90,19 +90,6 @@ public struct UsableValue: Equatable {
     public var currentValue: Int
 }
 
-public struct Skill: Equatable {
-    public let name: String
-    public var didUse: Bool = false
-    public var defaultValue: Int
-    public var halfValue: Int {
-        defaultValue / 2
-    }
-
-    public var fifthValue: Int {
-        defaultValue / 5
-    }
-}
-
 public enum ItemType: String, Equatable {
     case manClothes
     case womanClothes

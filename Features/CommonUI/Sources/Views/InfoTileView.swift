@@ -19,7 +19,7 @@ public struct InfoTileView: View {
                 .frame(width: Sizes.big, height: Sizes.big)
                 .padding(Margin.small)
                 .defaultLightCard()
-                .padding([.leading, .vertical], Margin.regular)
+                .padding([.leading, .vertical], Margin.small)
             VStack(alignment: .leading, spacing: Margin.micro) {
                 Text(title)
                     .textStyle(description.isEmpty ? .whiteMediumBold : .whiteSmallBold)

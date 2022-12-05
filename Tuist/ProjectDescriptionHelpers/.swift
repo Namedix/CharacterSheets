@@ -104,23 +104,30 @@ public extension Target {
 
         // Configurations
         let frameworkConfigurations: [Configuration] = [
-            .debug(name: "Debug", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Framework.xcconfig")),
+            .debug(name: "Debug",
+                   settings: .init()
+                       .manualCodeSigning(
+                           identity: "Apple Development",
+                           provisioningProfileSpecifier: "Character Sheets"
+                       ), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Framework.xcconfig")),
             .release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Framework.xcconfig")),
         ]
         let testsConfigurations: [Configuration] = [
-            .debug(name: "Debug", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
+            .debug(name: "Debug",
+                   settings: .init()
+                       .manualCodeSigning(
+                           identity: "Apple Development",
+                           provisioningProfileSpecifier: "Character Sheets"
+                       ), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
             .release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Base.xcconfig")),
         ]
         let appConfigurations: [Configuration] = [
-            .debug(
-                name: "Debug",
-                settings: .init()
-                    .manualCodeSigning(
-                        identity: "Apple Development",
-                        provisioningProfileSpecifier: "Character Sheets"
-                    ),
-                xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")
-            ),
+            .debug(name: "Debug",
+                   settings: .init()
+                       .manualCodeSigning(
+                           identity: "Apple Development",
+                           provisioningProfileSpecifier: "Character Sheets"
+                       ), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")),
             .release(name: "Release", settings: [String: SettingValue](), xcconfig: .relativeToRoot("Configurations/iOS/iOS-Application.xcconfig")),
         ]
 

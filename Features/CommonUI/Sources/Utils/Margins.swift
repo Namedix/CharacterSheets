@@ -7,9 +7,6 @@ public enum Margin {
     /// Value: 8.0
     public static let small: CGFloat = 8.0
 
-    /// Value: 10.0
-    public static let regular: CGFloat = 8.0
-
     /// Value: 12.0
     public static let medium: CGFloat = 12.0
 
